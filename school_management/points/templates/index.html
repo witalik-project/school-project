@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Simon Konarski Gymnasium
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% for class in classes %}
+        <div class="card" style="width: 18rem; margin-right: 15px;">
+            <img src="{{ class.class_photo.url }}" class="card-img-top pt-3" alt="{{ class.class_number }}{{class.class_letter }} photo error.">
+            <div class="card-body">
+                <h5 class="card-title">{{ class.class_number }}{{ class.class_letter | capfirst }}</h5>
+                <p class="card-text">SOMETHING</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Class teacher: {{ class.class_teacher_name | capfirst }} {{ class.class_teacher_surname | capfirst }}</li>
+                <li class="list-group-item">School level: {{ class.class_school_level }}</li>
+                <li class="list-group-item">Points: {{ class.class_points }}</li>
+            </ul>
+            <div class="card-body">
+                <a href="/school/class/edit/{{ class.id }}" class="btn btn-primary">Edit</a>
+                <a href="/school/class/delete/{{ class.id }}" class="btn btn-primary">Delete</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

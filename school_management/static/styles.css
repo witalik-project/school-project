@@ -1,0 +1,21 @@
+body {
+    overflow-x: hidden;
+}
+
+.form-item input, .form-item textarea, .form-item select {
+    display: block;
+    width: 100%;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    margin-top: 0.25rem;
+}
+
+.form-item input:focus, .form-item textarea:focus, .form-item select:focus {
+    color: #212529;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
