@@ -27,3 +27,17 @@ class Classes(models.Model):
     def __str__(self):
         return f"{self.class_number}{str(self.class_letter).capitalize()} - {self.class_school_level}"
 
+
+class PointsLog(models.Model):
+    POINTS_LOG_TYPE_CHOICES = [
+        ("+", "Add"),
+        ("-", "Subtract")
+    ]
+
+    points_log_class = models.ForeignKey(Classes, on_delete=models.SET_NULL, null=True)
+    points_log_date = models.DateField(auto_now_add=True)
+    points_log_type = models.CharField(max_length=1, choices=POINTS_LOG_TYPE_CHOICES, default="+")
+    points_log_amount = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)])
+
+    def __str__(self):
+        return f"{self.points_log_class} - {self.points_log_date} - {self.points_log_type} {self.points_log_amount} points."

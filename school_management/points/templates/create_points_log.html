@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Create points log
+{% endblock %}
+
+{% block content %}
+    <h1>Create points log</h1>
+    <form action="/school/points/log/create" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-item mt-3 mb-3">
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+        <button class="btn btn-primary" type="submit">Create points log for class</button>
+    </form>
+{% endblock %}
