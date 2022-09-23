@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+Scoreboard
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="card mx-auto" style="width: 18rem;">
+            <div class="card-header text-center">
+                Scoreboard
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for class in classes %}
+                    <li class="list-group-item">{{ class.class_number }}{{ class.class_letter }} - {{ class.class_points }} points</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

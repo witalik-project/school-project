@@ -22,8 +22,8 @@
             <div class="card-body">
                 <a href="/school/class/edit/{{ class.id }}" class="btn btn-primary">Edit</a>
                 <a href="/school/class/delete/{{ class.id }}" class="btn btn-primary">Delete</a>
-                <a href="/school/points/log/add/create" class="btn btn-primary">Add</a>
-                <a href="/school/points/log/subtract/create" class="btn btn-primary">Subtract</a>
+                <a href="/school/points/add/log/create/{{ class.id }}" class="btn btn-primary">Add</a>
+                <a href="/school/points/subtract/log/create/{{ class.id }}" class="btn btn-primary">Subtract</a>
             </div>
         </div>
         {% endfor %}

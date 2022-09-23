@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Edit class
+    Create add points log
 {% endblock %}
 
 {% block content %}
-    <h1>Edit class {{ classes.class_number }}{{ classes.class_letter }}</h1>
+    <h1>Create add points log for {{ classes.class_number }}{{ classes.class_letter }} class</h1>
     <form action="{{ class.id }}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
@@ -15,6 +15,6 @@
                 {{ field.errors }}
             </div>
         {% endfor %}
-        <button class="btn btn-primary" type="submit">Edit class</button>
+        <button class="btn btn-primary" type="submit">Add points for {{ classes.class_number }}{{ classes.class_letter }} class</button>
     </form>
 {% endblock %}
