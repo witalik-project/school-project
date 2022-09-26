@@ -37,7 +37,7 @@ class PointsLog(models.Model):
     points_log_class = models.ForeignKey(Classes, on_delete=models.SET_NULL, null=True)
     points_log_date = models.DateField(auto_now_add=True)
     points_log_type = models.CharField(max_length=1, choices=POINTS_LOG_TYPE_CHOICES, default="+")
-    points_log_amount = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)])
+    points_log_amount = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)], null=False)
 
     def __str__(self):
         if self.points_log_type == "+":
@@ -49,7 +49,7 @@ class PointsLog(models.Model):
 class AddPointsLog(models.Model):
     points_add_log_class = models.ForeignKey(Classes, on_delete=models.SET_NULL, null=True)
     points_add_log_date = models.DateField(auto_now_add=True)
-    points_add_log_amount = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)])
+    points_add_log_amount = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)], null=False)
 
     def __str__(self):
         return f"{self.points_add_log_class} - {self.points_add_log_date} - ADDED {self.points_add_log_amount} points."
@@ -58,7 +58,7 @@ class AddPointsLog(models.Model):
 class SubtractPointsLog(models.Model):
     points_subtract_log_class = models.ForeignKey(Classes, on_delete=models.SET_NULL, null=True)
     points_subtract_log_date = models.DateField(auto_now_add=True)
-    points_subtract_log_amount = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)])
+    points_subtract_log_amount = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)], null=False)
 
     def __str__(self):
         return f"{self.points_subtract_log_class} - {self.points_subtract_log_date} - SUBTRACTED {self.points_subtract_log_amount} points."

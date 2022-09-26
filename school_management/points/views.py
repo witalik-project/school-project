@@ -55,7 +55,7 @@ def create_points_log(request):
         form = PointsLogCreateEditForm()
 
     return render(request, "create_points_log.html", {
-        "form": form
+        "form": form,
     })
 
 
@@ -103,7 +103,9 @@ def create_subtract_points_log(request, pk):
     })
 
 
-class Scoreboard(ListView):
-    template_name = "scoreboard.html"
-    model = Classes
-    context_object_name = "classes"
+def scoreboard(request):
+    all_classes = Classes.objects.all().order_by("-class_points")
+
+    return render(request, "scoreboard.html", {
+        "classes": all_classes,
+    })

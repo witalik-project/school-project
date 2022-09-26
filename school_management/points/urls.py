@@ -9,5 +9,5 @@ urlpatterns = [
    path("school/points/log/create", views.create_points_log),
    path("school/points/add/log/create/<int:pk>", views.create_add_points_log),
    path("school/points/subtract/log/create/<int:pk>", views.create_subtract_points_log),
-   path("school/scoreboard", views.Scoreboard.as_view()),
+   path("school/scoreboard", views.scoreboard),
 ]
