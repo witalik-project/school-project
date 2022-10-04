@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.conf import settings
+from django.utils import timezone
 
 
 class Classes(models.Model):
@@ -22,43 +24,20 @@ class Classes(models.Model):
     class_teacher_name = models.CharField(max_length=20)
     class_teacher_surname = models.CharField(max_length=20)
     class_points = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(999)], null=False)
-    class_photo = models.ImageField(upload_to="images", default="./uploads/images/default.jpg", null=True)
+    class_photo = models.ImageField(upload_to="images", blank=True, null=True)
 
     def __str__(self):
         return f"{self.class_number}{str(self.class_letter).capitalize()} - {self.class_school_level}"
 
 
 class PointsLog(models.Model):
-    POINTS_LOG_TYPE_CHOICES = [
-        ("+", "Add"),
-        ("-", "Subtract")
-    ]
-
     points_log_class = models.ForeignKey(Classes, on_delete=models.SET_NULL, null=True)
-    points_log_date = models.DateField(auto_now_add=True)
-    points_log_type = models.CharField(max_length=1, choices=POINTS_LOG_TYPE_CHOICES, default="+")
+    points_log_date = models.DateTimeField(auto_now_add=True)
+    points_log_type = models.BooleanField(blank=True, null=True)
     points_log_amount = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)], null=False)
 
     def __str__(self):
-        if self.points_log_type == "+":
+        if self.points_log_type:
             return f"{self.points_log_class} - {self.points_log_date} - ADDED {self.points_log_amount} points."
         else:
             return f"{self.points_log_class} - {self.points_log_date} - SUBTRACTED {self.points_log_amount} points."
-
-
-class AddPointsLog(models.Model):
-    points_add_log_class = models.ForeignKey(Classes, on_delete=models.SET_NULL, null=True)
-    points_add_log_date = models.DateField(auto_now_add=True)
-    points_add_log_amount = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)], null=False)
-
-    def __str__(self):
-        return f"{self.points_add_log_class} - {self.points_add_log_date} - ADDED {self.points_add_log_amount} points."
-
-
-class SubtractPointsLog(models.Model):
-    points_subtract_log_class = models.ForeignKey(Classes, on_delete=models.SET_NULL, null=True)
-    points_subtract_log_date = models.DateField(auto_now_add=True)
-    points_subtract_log_amount = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)], null=False)
-
-    def __str__(self):
-        return f"{self.points_subtract_log_class} - {self.points_subtract_log_date} - SUBTRACTED {self.points_subtract_log_amount} points."

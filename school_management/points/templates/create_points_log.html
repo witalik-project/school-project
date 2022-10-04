@@ -15,6 +15,13 @@
                 {{ field.errors }}
             </div>
         {% endfor %}
+        {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-warning mt-3" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
         <button class="btn btn-primary" type="submit">Create points log for class</button>
     </form>
 {% endblock %}

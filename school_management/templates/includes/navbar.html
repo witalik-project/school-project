@@ -1,12 +1,17 @@
+{% load static %}
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Simon Konarski Gymnasium</a>
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'favicon.ico' %}" alt="Favicon" width="30" height="30">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+                {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -25,8 +30,12 @@
                         <li><a class="dropdown-item" href="/school/points/log/create">Create points log</a></li>
                     </ul>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/school/scoreboard">Scoreboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/school/points/log/history">Logs</a>
                 </li>
             </ul>
         </div>

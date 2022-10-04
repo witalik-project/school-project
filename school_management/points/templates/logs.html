@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% block page_title %}
+Logs history
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="card mx-auto" style="width: 35rem;">
+            <div class="card-header text-center mt-2">
+                <b>Logs</b>
+            </div>
+            <form method="GET">
+            {{ filter.form|bootstrap }}
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+            </div>
+            </form>
+            <ul class="list-group list-group-flush">
+                {% for log in filter.qs %}
+                {% if log.points_log_type %}
+                <li class="list-group-item">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - ADDED {{ log.points_log_amount }} points.
+                </li>
+                {% else %}
+                <li class="list-group-item">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - SUBTRACTED {{ log.points_log_amount }} points.
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Create subtract points log for {{ classes.class_number }}{{ classes.class_letter }} class</h1>
-    <form action="{{ class.id }}" method="post" enctype="multipart/form-data">
+    <h1>Create subtract points log for {{ classes.class_number }}{{classes.class_letter }} class.</h1>
+    <form action="/school/points/subtract/log/create/{{ classes.id }}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
             <div class="form-item mt-3 mb-3">
@@ -15,6 +15,13 @@
                 {{ field.errors }}
             </div>
         {% endfor %}
-        <button class="btn btn-primary" type="submit">Subtract points for {{ classes.class_number }}{{ classes.class_letter }} class</button>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning mt-3" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <button class="btn btn-primary" type="submit">Create subtract points log for class.</button>
     </form>
 {% endblock %}
