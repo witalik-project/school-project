@@ -19,3 +19,14 @@ body {
     outline: 0;
     box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
+
+.popup {
+    display: none;
+}
+.popup-show{
+    display: block;
+}
+
+.navbar-nav {
+    text-align: right;
+}

@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
@@ -67,7 +67,8 @@ def create_points_log(request):
             log = PointsLog(
                 points_log_class=form.cleaned_data["points_log_class"],
                 points_log_type=form.cleaned_data["points_log_type"],
-                points_log_amount=form.cleaned_data["points_log_amount"]
+                points_log_amount=form.cleaned_data["points_log_amount"],
+                points_log_created_by=request.user
             )
             if log.points_log_type:
                 check_plus = log.points_log_class.class_points + log.points_log_amount
@@ -106,7 +107,8 @@ def add_points_log(request, pk):
             log = PointsLog(
                 points_log_class=points_log_class,
                 points_log_type=True,
-                points_log_amount=form.cleaned_data["points_log_amount"]
+                points_log_amount=form.cleaned_data["points_log_amount"],
+                points_log_created_by=request.user
             )
             check = log.points_log_class.class_points + log.points_log_amount
             if check > 1000:
@@ -135,7 +137,8 @@ def subtract_points_log(request, pk):
             log = PointsLog(
                 points_log_class=points_log_class,
                 points_log_type=False,
-                points_log_amount=form.cleaned_data["points_log_amount"]
+                points_log_amount=form.cleaned_data["points_log_amount"],
+                points_log_created_by=request.user
             )
             check = log.points_log_class.class_points - log.points_log_amount
             if check < 0:
@@ -171,11 +174,18 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"You are now logged in as {username}.")
+                # messages.add_message(request, messages.INFO, f"You are now logged in as {username}.")
                 return redirect("/")
             else:
-                messages.error(request, "Invalid username or password.")
+                messages.add_message(request, messages.ERROR, "Invalid username or password.")
         else:
             messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
     return render(request=request, template_name="registration/login.html", context={"login_form": form})
+
+
+def logout_request(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect("/")
+    return render(request=request, template_name="logout.html")

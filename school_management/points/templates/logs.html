@@ -14,16 +14,16 @@ Logs history
             <form method="GET">
             {{ filter.form|bootstrap }}
             <div class="text-end">
-                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                <button type="submit" class="btn btn-primary mt-2 mb-2">Submit</button>
             </div>
             </form>
             <ul class="list-group list-group-flush">
                 {% for log in filter.qs %}
                 {% if log.points_log_type %}
-                <li class="list-group-item">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - ADDED {{ log.points_log_amount }} points.
+                <li class="list-group-item">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - ADDED {{ log.points_log_amount }} points. Created by - {{ log.points_log_created_by }}
                 </li>
                 {% else %}
-                <li class="list-group-item">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - SUBTRACTED {{ log.points_log_amount }} points.
+                <li class="list-group-item">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - SUBTRACTED {{ log.points_log_amount }} points. Created by - {{ log.points_log_created_by }}
                 </li>
                 {% endif %}
                 {% endfor %}

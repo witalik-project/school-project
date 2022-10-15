@@ -1,20 +1,24 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Create class
+Create class
 {% endblock %}
 
 {% block content %}
-    <h1>Create class</h1>
-    <form action="/school/class/create" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% for field in form %}
+<div class="popup" id="createClassHtml">
+    <div class="popup-show">
+        <h1>Create class</h1>
+        <form action="/school/class/create" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
             <div class="form-item mt-3 mb-3">
                 {{ field.label_tag }}
                 {{ field }}
                 {{ field.errors }}
             </div>
-        {% endfor %}
-        <button class="btn btn-primary" type="submit">Create class</button>
-    </form>
+            {% endfor %}
+            <button class="btn btn-primary" type="submit">Create class</button>
+        </form>
+    </div>
+</div>
 {% endblock %}

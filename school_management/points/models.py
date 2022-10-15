@@ -35,6 +35,8 @@ class PointsLog(models.Model):
     points_log_date = models.DateTimeField(auto_now_add=True)
     points_log_type = models.BooleanField(blank=True, null=True)
     points_log_amount = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)], null=False)
+    points_log_description = models.TextField(blank=True, null=True, help_text="Write some description if you need.")
+    points_log_created_by = models.CharField(max_length=30, null=True)
 
     def __str__(self):
         if self.points_log_type:

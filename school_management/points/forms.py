@@ -35,6 +35,10 @@ class PointsLogCreateEditForm(forms.Form):
             "min_value": "Min add/subtract log amount - 1",
             "max_value": "Max add/subtract log amount - 100"
         })
+    points_log_description = forms.CharField(
+        widget=forms.Textarea,
+        required=False
+    )
 
 
 class PointsAddSubtractLogCreateEditForm(forms.Form):
@@ -46,5 +50,9 @@ class PointsAddSubtractLogCreateEditForm(forms.Form):
             "min_value": "Min add/subtract log amount - 1",
             "max_value": "Max add/subtract log amount - 100"
         })
+    points_log_description = forms.CharField(
+        widget=forms.Textarea,
+        required=False
+    )
 
 

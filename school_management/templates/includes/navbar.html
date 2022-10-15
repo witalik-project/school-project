@@ -18,7 +18,8 @@
                         Class
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="/school/class/create">Create class</a></li>
+<!--                        <li><a class="dropdown-item" href="/school/class/create">Create class</a></li>-->
+                        <li><button onclick="createClass()">Create class</button></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -27,7 +28,7 @@
                         Points
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="/school/points/log/create">Create points log</a></li>
+                        <li><a class="dropdown-item" href="/school/points/log/create" data-bs-toggle="modal" data-bs-target="craeteClassModal">Create points log</a></li>
                     </ul>
                 </li>
                 {% endif %}
@@ -40,5 +41,7 @@
             </ul>
         </div>
     </div>
-<!--    <span class="navbar-brand text-right">logged in as: {{ request.user.username }}</span>-->
+    {% if user.is_authenticated %}
+            <a class="navbar-brand text-right" aria-current="page" href="{% url 'logout' %}">Logout</a>
+    {% endif %}
 </nav>

@@ -11,5 +11,6 @@ urlpatterns = [
    path("school/points/subtract/log/create/<int:pk>", views.subtract_points_log),
    path("school/scoreboard", views.Scoreboard.as_view()),
    path("login", views.login_request, name="login"),
+   path("logout", views.logout_request, name="logout"),
    path("school/points/log/history", views.LogsList.as_view()),
 ]
