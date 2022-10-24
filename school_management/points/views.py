@@ -12,62 +12,33 @@ from .forms import ClassesEditCreateForm, ClassesEditExceptPointsForm, PointsLog
 from .filters import PointsLogFilter
 
 
-class Index(ListView):
-    template_name = "index.html"
-    model = Classes
-    context_object_name = "classes"
+def create_classes(request):
+    if request.method == "POST":
+        create_classes.classes_form = ClassesEditCreateForm(request.POST)
+        if create_classes.classes_form.is_valid():
+            classes = Classes(
+                class_number=create_classes.classes_form.cleaned_data["class_number"],
+                class_letter=create_classes.classes_form.cleaned_data["class_letter"],
+                class_school_level=create_classes.classes_form.cleaned_data["class_school_level"],
+                class_teacher_name=create_classes.classes_form.cleaned_data["class_teacher_name"],
+                class_teacher_surname=create_classes.classes_form.cleaned_data["class_teacher_surname"],
+                class_points=create_classes.classes_form.cleaned_data["class_points"],
+                class_photo=create_classes.classes_form.cleaned_data["class_photo"],
+            )
+            classes.save()
+            return HttpResponseRedirect("/")
+    else:
+        create_classes.classes_form = ClassesEditCreateForm()
 
 
-class Scoreboard(ListView):
-    template_name = "scoreboard.html"
-    model = Classes
-    context_object_name = "classes"
-
-    ordering = ['-class_points']
-
-
-class LogsList(ListView):
-    template_name = "logs.html"
-    model = PointsLog
-    context_object_name = "logs"
-
-    ordering = ['-points_log_date']
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter'] = PointsLogFilter(self.request.GET, queryset=self.get_queryset())
-        return context
-
-
-class CreateClass(LoginRequiredMixin, CreateView):
-    template_name = "create_class.html"
-    model = Classes
-    form_class = ClassesEditCreateForm
-    success_url = "/"
-
-
-class EditClass(LoginRequiredMixin, UpdateView):
-    template_name = "edit_class.html"
-    model = Classes
-    form_class = ClassesEditExceptPointsForm
-    success_url = "/"
-
-
-class DeleteClass(LoginRequiredMixin, DeleteView):
-    template_name = "delete_class.html"
-    model = Classes
-    success_url = "/"
-
-
-@login_required
 def create_points_log(request):
     if request.method == "POST":
-        form = PointsLogCreateEditForm(request.POST)
-        if form.is_valid():
+        create_points_log.points_log_form = PointsLogCreateEditForm(request.POST)
+        if create_points_log.points_log_form.is_valid():
             log = PointsLog(
-                points_log_class=form.cleaned_data["points_log_class"],
-                points_log_type=form.cleaned_data["points_log_type"],
-                points_log_amount=form.cleaned_data["points_log_amount"],
+                points_log_class=create_points_log.points_log_form.cleaned_data["points_log_class"],
+                points_log_type=create_points_log.points_log_form.cleaned_data["points_log_type"],
+                points_log_amount=create_points_log.points_log_form.cleaned_data["points_log_amount"],
                 points_log_created_by=request.user
             )
             if log.points_log_type:
@@ -91,11 +62,55 @@ def create_points_log(request):
                     log.save()
                     return HttpResponseRedirect("/")
     else:
-        form = PointsLogCreateEditForm()
+        create_points_log.points_log_form = PointsLogCreateEditForm()
 
-    return render(request, "create_points_log.html", {
-        "form": form,
+
+@login_required
+def index(request):
+    all_classes = Classes.objects.all()
+
+    create_classes(request)
+    create_points_log(request)
+
+    return render(request, "index.html", {
+        "classes_form": create_classes.classes_form,
+        "points_log_form": create_points_log.points_log_form,
+        "classes": all_classes
     })
+
+
+class Scoreboard(ListView):
+    template_name = "scoreboard.html"
+    model = Classes
+    context_object_name = "classes"
+
+    ordering = ['-class_points']
+
+
+class LogsList(ListView):
+    template_name = "logs.html"
+    model = PointsLog
+    context_object_name = "logs"
+
+    ordering = ['-points_log_date']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = PointsLogFilter(self.request.GET, queryset=self.get_queryset())
+        return context
+
+
+class EditClass(LoginRequiredMixin, UpdateView):
+    template_name = "edit_class.html"
+    model = Classes
+    form_class = ClassesEditExceptPointsForm
+    success_url = "/"
+
+
+class DeleteClass(LoginRequiredMixin, DeleteView):
+    template_name = "delete_class.html"
+    model = Classes
+    success_url = "/"
 
 
 @login_required

@@ -4,6 +4,8 @@
     Simon Konarski Gymnasium
 {% endblock %}
 
+
+
 {% block content %}
 <div class="container">
     <div class="row">
@@ -27,10 +29,10 @@
             </ul>
             {% if user.is_authenticated %}
                 <div class="card-body">
-                    <a href="/school/class/edit/{{ class.id }}" class="btn btn-warning">Edit</a>
-                    <a href="/school/class/delete/{{ class.id }}" class="btn btn-danger">Delete</a>
-                    <a href="/school/points/add/log/create/{{ class.id }}" class="btn btn-success">+</a>
-                    <a href="/school/points/subtract/log/create/{{ class.id }}" class="btn btn-danger">-</a>
+                    <a href="/school/class/edit/{{ class.id }}" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
+                    <a href="/school/class/delete/{{ class.id }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                    <a href="/school/points/add/log/create/{{ class.id }}" class="btn btn-secondary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                    <a href="/school/points/subtract/log/create/{{ class.id }}" class="btn btn-secondary"><i class="fa fa-minus" aria-hidden="true"></i></a>
                 </div>
             {% endif %}
         </div>

@@ -1,24 +1,32 @@
-{% extends "base.html" %}
-
-{% block page_title %}
-Create class
-{% endblock %}
-
-{% block content %}
-<div class="popup" id="createClassHtml">
-    <div class="popup-show">
-        <h1>Create class</h1>
-        <form action="/school/class/create" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% for field in form %}
-            <div class="form-item mt-3 mb-3">
-                {{ field.label_tag }}
-                {{ field }}
-                {{ field.errors }}
+<div class="modal fade" id="createClassModal" tabindex="-1" role="dialog" aria-labelledby="createClassModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createClassModalLabel">Create class</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            {% endfor %}
-            <button class="btn btn-primary" type="submit">Create class</button>
-        </form>
+            <div class="modal-body">
+                <form action="/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in classes_form %}
+                    <div class="form-item mt-3 mb-3">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {{ field.errors }}
+                    </div>
+                    {% endfor %}
+                     <button type="submit" class="btn btn-primary">Create class</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
     </div>
 </div>
-{% endblock %}
+
+

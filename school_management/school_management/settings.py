@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'bootstrap_modal_forms',
     'points',
     'django_filters',
+    'django_slots',
+    'django_bootstrap_icons',
 ]
 
 MIDDLEWARE = [

@@ -1,14 +1,17 @@
-{% extends "base.html" %}
-
-{% block page_title %}
-    Create points log
-{% endblock %}
-
-{% block content %}
-    <h1>Create points log</h1>
-    <form action="/school/points/log/create" method="post" enctype="multipart/form-data">
+<div class="modal fade" id="createPointsLogModal" tabindex="-1" role="dialog" aria-labelledby="createPointsLogModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createPointsLogModalLabel">Create class</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {% for field in form %}
+        {% for field in points_log_form %}
             <div class="form-item mt-3 mb-3">
                 {{ field.label_tag }}
                 {{ field }}
@@ -30,4 +33,11 @@
         {% endif %}
         <button class="btn btn-primary" type="submit">Create points log for class</button>
     </form>
-{% endblock %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
