@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load bootstrap %}
+
 {% block page_title %}
 Logs history
 {% endblock %}
@@ -20,14 +21,17 @@ Logs history
             <ul class="list-group list-group-flush">
                 {% for log in filter.qs %}
                 {% if log.points_log_type %}
-                <li class="list-group-item">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - ADDED {{ log.points_log_amount }} points. Created by - {{ log.points_log_created_by }}
+                <li class="list-group-item" type="checkbox">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - ADDED {{ log.points_log_amount }} points. Created by - {{ log.points_log_created_by }}
                 </li>
                 {% else %}
-                <li class="list-group-item">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - SUBTRACTED {{ log.points_log_amount }} points. Created by - {{ log.points_log_created_by }}
+                <li class="list-group-item" type="checkbox">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - SUBTRACTED {{ log.points_log_amount }} points. Created by - {{ log.points_log_created_by }}
                 </li>
                 {% endif %}
                 {% endfor %}
             </ul>
+            <div class="text-end">
+                <button type="submit" class="btn btn-danger mt-2 mb-2">Delete</button>
+            </div>
         </div>
     </div>
 </div>

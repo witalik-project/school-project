@@ -3,6 +3,13 @@ from .models import Classes, PointsLog
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
+class ClassesCreateEditForm(forms.ModelForm):
+    class Meta:
+        model = Classes
+        fields = "__all__"
+
+
+# TODO: NOT USING
 class ClassesEditCreateForm(forms.Form):
     SCHOOL_LETTER_CHOICES = [
         ("A", "A"),
@@ -19,6 +26,9 @@ class ClassesEditCreateForm(forms.Form):
 
     class_number = forms.IntegerField(
         label="Class number",
+        error_messages={
+            'required': 'Please provide class number'
+        }
     )
     class_letter = forms.ChoiceField(
         label="Class letter",
@@ -38,10 +48,6 @@ class ClassesEditCreateForm(forms.Form):
         label="Class points",
         validators=[MinValueValidator(0), MaxValueValidator(999)],
     )
-    class_photo = forms.ImageField(
-        label="Class photo",
-        required=False
-    )
 
 
 class ClassesEditExceptPointsForm(forms.ModelForm):
@@ -50,16 +56,21 @@ class ClassesEditExceptPointsForm(forms.ModelForm):
         exclude = ("class_points",)
 
 
-class PointsLogCreateEditForm(forms.Form):
+class PointsLogCreateForm(forms.Form):
+    CHOICES = (
+        (True, 'Add'),
+        (None, 'Subtract')
+    )
+
     points_log_class = forms.ModelChoiceField(
         label="Class",
         queryset=Classes.objects.all(),
-        error_messages={
-            "required": "Please choose class for log",
-        })
-    points_log_type = forms.BooleanField(
-        label="Check if you want to ADD",
-        required=False
+    )
+    points_log_type = forms.ChoiceField(
+        label="Choose what you want to do",
+        choices=CHOICES,
+        required=False,
+        initial='Add'
     )
     points_log_amount = forms.IntegerField(
         label="Amount",

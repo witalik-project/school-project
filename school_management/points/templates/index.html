@@ -11,13 +11,6 @@
     <div class="row">
         {% for class in classes %}
         <div class="card mb-3" style="width: 18rem; margin-right: 15px;">
-            <div class="pt-3 d-block mx-auto" style="width: 250px; height: 250px;">
-                {% if class.class_photo %}
-                    <img src="{{ class.class_photo.url }}" class="card-img-top rounded" style="height: 100%; width: 100%; object-fit: cover; " alt="{{ class.class_number }}{{class.class_letter }} photo error.">
-                {% else %}
-                    <img src="{% static 'default.png' %}" class="card-img-top rounded" style="height: 100%; width: 100%; object-fit: cover;" alt="{{ class.class_number }}{{class.class_letter }} photo error3.">
-                {% endif %}
-            </div>
             <div class="card-body">
                 <h5 class="card-title">{{ class.class_number }}{{ class.class_letter | capfirst }}</h5>
                 <p class="card-text">SOMETHING</p>
