@@ -12,5 +12,6 @@ urlpatterns = [
     path("school/scoreboard", views.Scoreboard.as_view(), name="scoreboard"),
     path("login", views.login_request, name="login"),
     path("logout", views.logout_request, name="logout"),
-    path("school/points/log/history", views.LogsList.as_view()),
+    path("school/points/log/history", views.LogsList.as_view(), name="logs_history"),
+    path("school/points/log/delete", views.delete_logs, name="delete_logs"),
 ]
