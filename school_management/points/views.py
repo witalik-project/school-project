@@ -5,19 +5,16 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
-from django.views.generic import ListView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, TemplateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, DeletionMixin
 from .models import Classes, PointsLog
 from .forms import (
-    ClassesEditCreateForm,
     ClassesEditExceptPointsForm,
     PointsLogCreateForm,
     PointsAddSubtractLogCreateEditForm,
     ClassesCreateEditForm,
 )
 from .filters import PointsLogFilter
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 
 class Index(ListView):
     template_name = "index.html"
@@ -44,13 +41,12 @@ class LogsList(LoginRequiredMixin, ListView):
     template_name = "logs.html"
     model = PointsLog
     context_object_name = "logs"
-    paginate_by = 5
     ordering = ["-points_log_date"]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["filter"] = PointsLogFilter(
-            request=self.request.GET, queryset=self.get_queryset()
+            self.request.GET, self.get_queryset()
         )
         return context
 
@@ -66,6 +62,21 @@ class DeleteClass(LoginRequiredMixin, DeleteView):
     template_name = "delete_class.html"
     model = Classes
     success_url = "/"
+
+
+@login_required
+def delete_logs(request):
+    if request.method == "POST":
+        queryset = request.POST.getlist("logs")
+        if queryset:
+            PointsLog.objects.filter(id__in=queryset).delete()
+        else:
+            messages.add_message(
+                request,
+                messages.WARNING,
+                "Please check logs you want to delete.",
+            )
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
 @login_required
