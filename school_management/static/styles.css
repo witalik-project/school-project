@@ -30,3 +30,9 @@ body {
 .navbar-nav {
     text-align: right;
 }
+
+[class^="icon-"] {
+    width: 2rem;
+    height: auto;
+    fill: #222;
+}

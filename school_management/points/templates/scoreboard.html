@@ -13,7 +13,15 @@ Scoreboard
             </div>
             <ul class="list-group list-group-flush">
                 {% for class in classes %}
-                    <li class="list-group-item"><span class="badge rounded-pill text-bg-warning">{{ forloop.counter }}. </span> <span class="badge text-bg-secondary">{{ class.class_number }}{{ class.class_letter }}</span> - <span class="badge text-bg-success">{{ class.class_points }}</span> points</li>
+                {% if forloop.counter == 1 %}
+                <li class="list-group-item"><i class="bi bi-1-square-fill"></i> <strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points</li>
+                {% elif forloop.counter == 2 %}
+                <li class="list-group-item"><i class="bi bi-2-square-fill"></i> <strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points</li>
+                {% elif forloop.counter == 3 %}
+                <li class="list-group-item"><i class="bi bi-3-square-fill"></i> <strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points</li>
+                {% else %}
+                <li class="list-group-item">{{ forloop.counter }}. {{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points</li>
+                {% endif %}
                 {% endfor %}
             </ul>
         </div>
