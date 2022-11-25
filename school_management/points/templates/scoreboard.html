@@ -14,13 +14,25 @@ Scoreboard
             <ul class="list-group list-group-flush">
                 {% for class in classes %}
                 {% if forloop.counter == 1 %}
-                <li class="list-group-item"><i class="bi bi-1-square-fill"></i> <strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points</li>
+                <li class="list-group-item text-center"> 
+                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    <br>
+                    <strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points
+                </li>
                 {% elif forloop.counter == 2 %}
-                <li class="list-group-item"><i class="bi bi-2-square-fill"></i> <strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points</li>
+                <li class="list-group-item text-center"> 
+                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    <br>
+                    <strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points
+                </li>
                 {% elif forloop.counter == 3 %}
-                <li class="list-group-item"><i class="bi bi-3-square-fill"></i> <strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points</li>
+                <li class="list-group-item text-center"> 
+                    <i class="bi bi-star-fill"></i>
+                    <br>
+                    <strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points
+                </li>
                 {% else %}
-                <li class="list-group-item">{{ forloop.counter }}. {{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points</li>
+                <li class="list-group-item text-center"><strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points</li>
                 {% endif %}
                 {% endfor %}
             </ul>
