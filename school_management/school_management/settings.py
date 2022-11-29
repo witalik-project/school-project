@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     "bootstrapform",
     "bootstrap_modal_forms",
     "django_filters",
-    "django_slots",
     "django_bootstrap_icons",
     # My apps:
     
@@ -88,11 +87,11 @@ WSGI_APPLICATION = "school_management.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "classes",
+        "NAME": "school_project",
         "HOST": "127.0.0.1",
         "PORT": "3306",
         "USER": "root",
-        "PASSWORD": "Wicka999Witalik2005",
+        "PASSWORD": "wicka999",
     }
 }
 
