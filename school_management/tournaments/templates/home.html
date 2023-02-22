@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_title %}
+    Tournaments
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% if user.is_authenticated %}
+        <h2 style="margin-bottom: 20px;">Create new tournament 
+            <a href="/tournaments/create" class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i></a>
+        </h2>
+
+        <hr>
+        {% endif %}
+
+        {% for tournament in tournaments %}
+        <div class="card mb-3" style="width: 18rem; margin-right: 15px;">
+            <div class="card-body">
+                <h5 class="card-title">{{ tournament.tournament_name }}</h5>
+                <p class="card-text">Classes in: 
+                    {% for class in tournament.tournament_classes.all %}
+                        {{ class.class_number }}{{ class.class_letter}}
+                        {% if tournament.tournament_classes.all|length != forloop.counter %},{% endif %}
+                    {% endfor %}
+                </p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"> Start date: {{ tournament.tournament_start_date }}</li>
+                <li class="list-group-item">End date: {{ tournament.tournament_end_date }}</li>
+                {% if tournament.tournament_is_active %}
+                    <li class="list-group-item">Is active: <i class="bi bi-check-circle-fill"></i></li>
+                {% else %}
+                    <li class="list-group-item">Is active: <i class="bi bi-x-circle-fill"></i></li>
+                {% endif %}
+            </ul>
+            {% if user.is_authenticated %}
+                <div class="card-body">
+                    <a href="/tournaments/edit/{{ tournament.id }}" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
+                    <a href="/tournaments/delete/{{ tournament.id }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

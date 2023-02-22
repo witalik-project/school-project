@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     # My apps:
     
     "points",
+    "tournaments",
 ]
 
 MIDDLEWARE = [

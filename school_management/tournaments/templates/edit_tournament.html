@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Edit tournament
+{% endblock %}
+
+{% block content %}
+    <h1>Edit {{ tournament.tournament_name }} tournament</h1>
+    <form action="/tournaments/edit/{{ tournament.id }}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-item mt-3 mb-3">
+                {{ field.label_tag }}   
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+        <button class="btn btn-primary" type="submit">Edit tournament</button>
+    </form>
+{% endblock %}

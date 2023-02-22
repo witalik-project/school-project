@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Create tournament
+{% endblock %}
+
+{% block content %}
+    <h1>Create tournament</h1>
+    <form action="/tournaments/create" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-item mt-3 mb-3">
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+        <!-- {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger mt-3" role="alert">
+                        {{ message }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-{{ message.tags }} mt-3" role="alert">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %} -->
+        <button class="btn btn-primary" type="submit">Create tournament</button>
+    </form>
+{% endblock %}
+
