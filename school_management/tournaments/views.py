@@ -2,11 +2,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
-from django.views.generic import ListView, TemplateView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView, DeletionMixin
-from .models import Tournament
-from .forms import TournamentCreateEditForm
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from .models import Tournament, TournamentDay, TournamentBattle
+from .forms import TournamentCreateEditForm, TournamentDayCreateEditForm, TournamentBattleCreateEditForm
 
 
 class TournamentsList(ListView):
@@ -22,6 +23,11 @@ class CreateTournament(LoginRequiredMixin, CreateView):
     success_url = "/tournaments/"
 
 
+class TournamentDetailView(DetailView):
+    template_name = "view_tournament.html"
+    model = Tournament
+
+
 class EditTournament(LoginRequiredMixin, UpdateView):
     template_name = "edit_tournament.html"
     model = Tournament
@@ -32,4 +38,23 @@ class EditTournament(LoginRequiredMixin, UpdateView):
 class DeleteTournament(LoginRequiredMixin, DeleteView):
     template_name = "delete_tournament.html"
     model = Tournament
+    success_url = "/tournaments/"
+
+
+class CreateTournamentDay(LoginRequiredMixin, CreateView):
+    template_name = "create_day.html"
+    model = TournamentDay
+    form_class = TournamentDayCreateEditForm
+    success_url = "/tournaments/"
+
+
+class TournamentDayDetailView(DetailView):
+    template_name = "view_day.html"
+    model = TournamentDay
+
+
+class TournamentBattleCreate(LoginRequiredMixin ,CreateView):
+    template_name = "create_battle.html"
+    model = TournamentBattle
+    form_class = TournamentBattleCreateEditForm
     success_url = "/tournaments/"

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_title %}
+    Tournament battle day view
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {{ tournamentday.tournament }} - {{ tournamentday.day_date }}
+        </div>
+
+        {% if user.is_authenticated %}
+        <h4>Create new battle 
+            <a href="/tournaments/battle/create" class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i></a>
+        </h4>
+        {% endif %}
+
+        <hr>
+
+
+        {% for battle in tournamentday.tournamentbattle_set.all %}
+            {{ battle.battle_day }} - {{ battle.battle_time }}
+            {{ battle.battle_first_oponent.class_number }} {{ battle.battle_first_oponent.class_letter }} VS {{ battle.battle_second_oponent.class_number }} {{ battle.battle_second_oponent.class_letter }}
+        {% endfor %}
+    </div>
+{% endblock %}

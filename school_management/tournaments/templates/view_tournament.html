@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_title %}
+    Tournament view
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h1 style="margin-bottom: 20px;">{{ tournament.tournament_name }}</h1>
+
+            {% if user.is_authenticated %}
+            <h4>Create new battle day 
+                <a href="/tournaments/day/create" class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i></a>
+            </h4>
+            {% endif %}
+
+            <hr>
+
+            {% for day in tournament.tournamentday_set.all %}
+                
+                <div class="card mb-3" style="width: 18rem; margin-right: 15px;">
+                    <div class="card-body">
+                        <h5 class="card-title">Battle</h5>
+                        <p class="card-text">Date of battle day: {{ day.day_date }}</p>
+                    </div>
+                    <div class="card-body">
+                        <a href="/tournaments/day/view/{{ day.id }}" class="btn btn-success"><i class="bi bi-eye-fill"></i></a>
+                        <!-- {% if user.is_authenticated %}
+                            <a href="/tournaments/edit/{{ tournament.id }}" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
+                            <a href="/tournaments/delete/{{ tournament.id }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                            <a href="/tournaments/view/{{ tournament.id }}" class="btn btn-success"><i class="bi bi-eye-fill"></i></a>
+                        {% endif %} -->
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
