@@ -9,5 +9,5 @@ urlpatterns = [
     path("delete/<int:pk>", views.DeleteTournament.as_view()),
     path("day/create", views.CreateTournamentDay.as_view(), name="create_tournament_day"),
     path("day/view/<int:pk>", views.TournamentDayDetailView.as_view()),
-    path("battle/create", views.TournamentBattleCreate.as_view())
+    path("battle/create/<int:pk>", views.TournamentBattleCreateView.as_view(), name="create_tournament_battle")
 ]

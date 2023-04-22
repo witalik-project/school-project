@@ -53,8 +53,21 @@ class TournamentDayDetailView(DetailView):
     model = TournamentDay
 
 
-class TournamentBattleCreate(LoginRequiredMixin ,CreateView):
-    template_name = "create_battle.html"
+class TournamentBattleCreateView(LoginRequiredMixin ,CreateView):
     model = TournamentBattle
     form_class = TournamentBattleCreateEditForm
+    template_name = 'create_battle.html'
     success_url = "/tournaments/"
+
+    def get_context_data(self, **kwargs):
+        context = super(TournamentBattleCreateView, self).get_context_data(**kwargs)
+        tournamentday = get_object_or_404(TournamentDay, pk=self.kwargs['pk'])
+        context['tournamentday'] = tournamentday
+        return context
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        tournamentday = get_object_or_404(TournamentDay, pk=self.kwargs['pk'])
+        kwargs['tournament'] = tournamentday.tournament
+        kwargs['tournamentday_pk'] = self.kwargs['pk']
+        return kwargs

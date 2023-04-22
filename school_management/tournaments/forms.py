@@ -19,14 +19,12 @@ class TournamentBattleCreateEditForm(forms.ModelForm):
         model = TournamentBattle
         fields = ['battle_day', 'battle_first_oponent', 'battle_second_oponent', 'battle_time', 'battle_is_finished', 'winner']
 
-    def clean(self):
-        bfo = self.cleaned_data.get('battle_first_oponent')
-        bso = self.cleaned_data.get('battle_second_oponent')
+    def __init__(self, *args, **kwargs):
+        tournamentday_pk = kwargs.pop('tournamentday_pk')
+        tournament = kwargs.pop('tournament')
+        super().__init__(*args, **kwargs)
+        self.fields['battle_day'].widget = forms.HiddenInput()
+        self.fields['battle_day'].initial = tournamentday_pk
+        self.fields['battle_first_oponent'].queryset = tournament.tournament_classes.all()
+        self.fields['battle_second_oponent'].queryset = tournament.tournament_classes.all()
 
-        if bfo and bso:
-            if bfo not in Classes.objects.select_related('classes'):
-                raise forms.ValidationError("This class is not in tournament")
-            if bso not in Classes.objects.select_related('classes'):
-                raise forms.ValidationError("This class is not in tournament")
-        
-        return self.cleaned_data

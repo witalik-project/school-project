@@ -6,28 +6,37 @@
 
 {% block content %}
     <h1>Create battle</h1>
-    <form action="/tournaments/battle/create" method="post" enctype="multipart/form-data">
+    <form action="{% url 'create_tournament_battle' pk=tournamentday.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {% for field in form %}
-            <div class="form-item mt-3 mb-3">
-                {{ field.label_tag }}
-                {{ field }}
-                {{ field.errors }}
-            </div>
-        {% endfor %}
-        <!-- {% if messages %}
-            {% for message in messages %}
-                {% if message.tags == 'error' %}
-                    <div class="alert alert-danger mt-3" role="alert">
-                        {{ message }}
-                    </div>
-                {% else %}
-                    <div class="alert alert-{{ message.tags }} mt-3" role="alert">
-                        {{ message }}
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %} -->
+        <div class="form-item mt-3 mb-3 d-none">
+            {{ form.battle_day }}
+            <input type="hidden" name="{{ form.battle_day.name }}" value="{{ form.battle_day.value }}">
+        </div>
+        <div class="form-item mt-3 mb-3">
+            {{ form.battle_first_oponent.label_tag }}
+            {{ form.battle_first_oponent }}
+            {{ form.battle_first_oponent.errors }}
+        </div>
+        <div class="form-item mt-3 mb-3">
+            {{ form.battle_second_oponent.label_tag }}
+            {{ form.battle_second_oponent }}
+            {{ form.battle_second_oponent.errors }}
+        </div>
+        <div class="form-item mt-3 mb-3">
+            {{ form.battle_time.label_tag }}
+            {{ form.battle_time }}
+            {{ form.battle_time.errors }}
+        </div>
+        <div class="form-item mt-3 mb-3">
+            {{ form.battle_is_finished.label_tag }}
+            {{ form.battle_is_finished }}
+            {{ form.battle_is_finished.errors }}
+        </div>
+        <div class="form-item mt-3 mb-3">
+            {{ form.winner.label_tag }}
+            {{ form.winner }}
+            {{ form.winner.errors }}
+        </div>
         <button class="btn btn-primary" type="submit">Create battle</button>
     </form>
 {% endblock %}

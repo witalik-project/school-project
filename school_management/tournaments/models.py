@@ -24,10 +24,10 @@ class TournamentBattle(models.Model):
         ("FT", "First team"),
         ("ST", "Second team")
     ]
-
+    
     battle_day = models.ForeignKey(TournamentDay, on_delete=models.CASCADE, null=False)
-    battle_first_oponent = models.ForeignKey(Classes, on_delete=models.CASCADE, null=False, related_name="first_oponent")
-    battle_second_oponent = models.ForeignKey(Classes, on_delete=models.CASCADE, null=False, related_name="second_oponent")
+    battle_first_oponent = models.ForeignKey(Classes, on_delete=models.CASCADE, related_name="first_oponent")
+    battle_second_oponent = models.ForeignKey(Classes, on_delete=models.CASCADE, related_name="second_oponent")
     battle_time = models.TimeField()
     battle_is_finished = models.BooleanField(default=False)
     winner = models.TextField(max_length=15, choices=WINNER_CHOICES, blank=True, null=True)

@@ -13,7 +13,7 @@
 
         {% if user.is_authenticated %}
         <h4>Create new battle 
-            <a href="/tournaments/battle/create" class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i></a>
+            <a href="{% url 'create_tournament_battle' pk=tournamentday.id %}" class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i></a>
         </h4>
         {% endif %}
 
