@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!--Logout-->
+    <h1>Logout</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>Jesteś pewny(-a) by wylogować {{ request.user }} ?</p>
+        <button class="btn btn-primary" type="submit">Wylogować</button>
+    </form>
+{% endblock %}

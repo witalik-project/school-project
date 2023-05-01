@@ -11,42 +11,36 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Class
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/school/class/create">Create</a>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Points
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/school/points/log/create">Create log</a>
-                    </ul>
-                </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">Klasa</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/school/class/create">Stworzyć</a>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">Punkty</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/school/points/log/create">Dodać/odjąć punkty</a>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/school/points/log/history">Rejestry</a>
+                    </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/school/scoreboard/">Scoreboard</a>
+                    <a class="nav-link active" aria-current="page" href="/school/scoreboard/">Podium</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/tournaments/">Tournaments</a>
+                    <a class="nav-link active" aria-current="page" href="/tournaments/">Turnieje</a>
                 </li>
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/school/points/log/history">Logs</a>
-                </li>
-                {% endif %}
             </ul>
         </div>
     </div>
     {% if user.is_authenticated %}
-        <a class="navbar-brand text-right" aria-current="page" href="{% url 'logout' %}"><i class="bi bi-box-arrow-left"></i></i></a>
+        <a class="navbar-brand text-right" aria-current="page" href="{% url 'points:logout' %}"><i class="bi bi-box-arrow-left"></i></i></a>
     {% else %}
-        <a class="navbar-brand text-right" aria-current="page" href="{% url 'login' %}"><i class="bi bi-box-arrow-right"></i></a>
+        <a class="navbar-brand text-right" aria-current="page" href="{% url 'points:login' %}"><i class="bi bi-box-arrow-right"></i></a>
     {% endif %}
 </nav>

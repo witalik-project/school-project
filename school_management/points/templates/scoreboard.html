@@ -9,31 +9,31 @@ Scoreboard
     <div class="row">
         <div class="card mx-auto" style="width: 18rem;">
             <div class="card-header text-center mt-2">
-                <b>Scoreboard</b>
+                <b>Podium</b>
             </div>
             <ul class="list-group list-group-flush">
                 {% for class in classes %}
-                {% if forloop.counter == 1 %}
-                <li class="list-group-item text-center"> 
-                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                    <br>
-                    <strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points
-                </li>
-                {% elif forloop.counter == 2 %}
-                <li class="list-group-item text-center"> 
-                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                    <br>
-                    <strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points
-                </li>
-                {% elif forloop.counter == 3 %}
-                <li class="list-group-item text-center"> 
-                    <i class="bi bi-star-fill"></i>
-                    <br>
-                    <strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points
-                </li>
-                {% else %}
-                <li class="list-group-item text-center"><strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points</li>
-                {% endif %}
+                    {% if forloop.counter == 1 %}
+                        <li class="list-group-item text-center"> 
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            <br>
+                            <strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} punktów
+                        </li>
+                    {% elif forloop.counter == 2 %}
+                        <li class="list-group-item text-center"> 
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            <br>
+                            <strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} punktów
+                        </li>
+                    {% elif forloop.counter == 3 %}
+                        <li class="list-group-item text-center"> 
+                            <i class="bi bi-star-fill"></i>
+                            <br>
+                            <strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} punktów
+                        </li>
+                    {% else %}
+                        <li class="list-group-item text-center"><strong>{{ class.class_number }}{{ class.class_letter }}</strong> - {{ class.class_points }} points</li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>

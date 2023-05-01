@@ -20,18 +20,16 @@ class TournamentDay(models.Model):
 
 
 class TournamentBattle(models.Model):
-    WINNER_CHOICES = [
-        ("FT", "First team"),
-        ("ST", "Second team")
+    CHOICES = [
+        ("FO", "First opponent"),
+        ("SO", "Second opponent")
     ]
-    
     battle_day = models.ForeignKey(TournamentDay, on_delete=models.CASCADE, null=False)
-    battle_first_oponent = models.ForeignKey(Classes, on_delete=models.CASCADE, related_name="first_oponent")
-    battle_second_oponent = models.ForeignKey(Classes, on_delete=models.CASCADE, related_name="second_oponent")
+    battle_first_oponent = models.ForeignKey(Classes, on_delete=models.CASCADE, related_name="first_oponent", to_field="id")
+    battle_second_oponent = models.ForeignKey(Classes, on_delete=models.CASCADE, related_name="second_oponent", to_field="id")
     battle_time = models.TimeField()
     battle_is_finished = models.BooleanField(default=False)
-    winner = models.TextField(max_length=15, choices=WINNER_CHOICES, blank=True, null=True)
+    winner = models.TextField(max_length=50, choices=CHOICES, blank=True, null=True)
 
     def __str__(self) -> str:
         return f"{self.battle_day} - {self.battle_time} - Finished: {self.battle_is_finished}"
-    

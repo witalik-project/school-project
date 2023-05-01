@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Create class
+    Stworzyć klasę
 {% endblock %}
 
 {% block content %}
-    <h1>Create class</h1>
-    <form action="/school/class/create" method="post" enctype="multipart/form-data">
+    <h1>Stworzyć klasę</h1>
+    <form action="{% url 'points:class_create' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
             <div class="form-item mt-3 mb-3">
@@ -28,7 +28,6 @@
                 {% endif %}
             {% endfor %}
         {% endif %}
-        <button class="btn btn-primary" type="submit">Create class</button>
+        <button class="btn btn-primary" type="submit">Stworzyć</button>
     </form>
 {% endblock %}
-

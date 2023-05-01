@@ -20,7 +20,7 @@
         {% for tournament in tournaments %}
         <div class="card mb-3" style="width: 18rem; margin-right: 15px;">
             <div class="card-body">
-                <h5 class="card-title">{{ tournament.tournament_name }}</h5>
+                <h5 class="card-title">{{ tournament.tournament_name | title }}</h5>
                 <p class="card-text">Classes in: 
                     {% for class in tournament.tournament_classes.all %}
                         {{ class.class_number }}{{ class.class_letter}}
@@ -37,13 +37,14 @@
                     <li class="list-group-item">Is active: <i class="bi bi-x-circle-fill"></i></li>
                 {% endif %}
             </ul>
-            {% if user.is_authenticated %}
-                <div class="card-body">
+            
+            <div class="card-body">
+                <a href="/tournaments/view/{{ tournament.id }}" class="btn btn-success"><i class="bi bi-eye-fill"></i></a>
+                {% if user.is_authenticated %}
                     <a href="/tournaments/edit/{{ tournament.id }}" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
                     <a href="/tournaments/delete/{{ tournament.id }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                    <a href="/tournaments/view/{{ tournament.id }}" class="btn btn-success"><i class="bi bi-eye-fill"></i></a>
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
         {% endfor %}
     </div>

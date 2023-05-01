@@ -6,7 +6,7 @@
 
 {% block content %}
     <h1>Create battle</h1>
-    <form action="{% url 'create_tournament_battle' pk=tournamentday.id %}" method="post" enctype="multipart/form-data">
+    <form action="{% url 'tournaments:create_tournament_battle' pk=tournamentday.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-item mt-3 mb-3 d-none">
             {{ form.battle_day }}
@@ -37,6 +37,13 @@
             {{ form.winner }}
             {{ form.winner.errors }}
         </div>
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
         <button class="btn btn-primary" type="submit">Create battle</button>
     </form>
 {% endblock %}

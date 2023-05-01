@@ -12,16 +12,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
-    <title>{% block page_title %} Simon Konarski Gymnasium {% endblock %}</title>
+    <title>{% block page_title %} Gimnazjum im. Szymona Konarskiego {% endblock %}</title>
 </head>
 <body>
-{% include 'includes/navbar.html' %}
-    <div class="container">
-        {% block content %}
-        {% endblock %}
-
-</div>
-{% include 'includes/footer.html' %}
+    {% include 'includes/navbar.html' %}
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+    </div>
+    {% include 'includes/footer.html' %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 </body>
 </html>

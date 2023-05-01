@@ -1,34 +1,28 @@
 {% extends "base.html" %}
 {% load static %}
-{% block page_title %}
-    Simon Konarski Gymnasium
-{% endblock %}
-
-
 
 {% block content %}
 <div class="container">
     <div class="row">
         {% for class in classes %}
-        <div class="card mb-3" style="width: 18rem; margin-right: 15px;">
-            <div class="card-body">
-                <h5 class="card-title">{{ class.class_number }}{{ class.class_letter | capfirst }}</h5>
-                <p class="card-text">SOMETHING</p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"> Class teacher: {{ class.class_teacher_name | title }} {{ class.class_teacher_surname | title }}</li>
-                <li class="list-group-item">School level: {{ class.class_school_level }}</li>
-                <li class="list-group-item">Points: {{ class.class_points }}</li>
-            </ul>
-            {% if user.is_authenticated %}
+            <div class="card mb-3" style="width: 18rem; margin-right: 15px;">
                 <div class="card-body">
-                    <a href="/school/class/edit/{{ class.id }}" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
-                    <a href="/school/class/delete/{{ class.id }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                    <a href="/school/points/add/log/create/{{ class.id }}" class="btn btn-secondary"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                    <a href="/school/points/subtract/log/create/{{ class.id }}" class="btn btn-secondary"><i class="fa fa-minus" aria-hidden="true"></i></a>
+                    <h5 class="card-title">{{ class.class_number }}{{ class.class_letter | capfirst }}</h5>
                 </div>
-            {% endif %}
-        </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"> Wychowawczyni: {{ class.class_teacher_name | title }} {{ class.class_teacher_surname | title }}</li>
+                    <li class="list-group-item">Poziom szkolnictwa: {{ class.class_school_level }}</li>
+                    <li class="list-group-item">Punkty: {{ class.class_points }}</li>
+                </ul>
+                {% if user.is_authenticated %}
+                    <div class="card-body">
+                        <a href="/school/class/edit/{{ class.id }}" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
+                        <a href="/school/class/delete/{{ class.id }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                        <a href="/school/points/add/log/create/{{ class.id }}" class="btn btn-secondary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                        <a href="/school/points/subtract/log/create/{{ class.id }}" class="btn btn-secondary"><i class="fa fa-minus" aria-hidden="true"></i></a>
+                    </div>
+                {% endif %}
+            </div>
         {% endfor %}
     </div>
 </div>

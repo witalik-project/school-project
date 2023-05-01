@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Edit {{ tournament.tournament_name }} tournament</h1>
-    <form action="/tournaments/edit/{{ tournament.id }}" method="post" enctype="multipart/form-data">
+    <h1>Edit {{ tournamentbattle.battle_first_oponent.class_number }}{{ tournamentbattle.battle_first_oponent.class_letter }} VS {{ tournamentbattle.battle_second_oponent.class_number }}{{ tournamentbattle.battle_second_oponent.class_letter }} battle</h1>
+    <form action="{% url 'tournaments:edit_tournament_battle' pk=tournamentbattle.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
             <div class="form-item mt-3 mb-3">
@@ -28,6 +28,6 @@
                 {% endfor %}
             </div>
         {% endif %}
-        <button class="btn btn-primary" type="submit">Edit tournament</button>
+        <button class="btn btn-primary" type="submit">Edit battle</button>
     </form>
 {% endblock %}

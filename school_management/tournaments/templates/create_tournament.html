@@ -12,23 +12,22 @@
             <div class="form-item mt-3 mb-3">
                 {{ field.label_tag }}
                 {{ field }}
-                {{ field.errors }}
-            </div>
-        {% endfor %}
-        <!-- {% if messages %}
-            {% for message in messages %}
-                {% if message.tags == 'error' %}
-                    <div class="alert alert-danger mt-3" role="alert">
-                        {{ message }}
-                    </div>
-                {% else %}
-                    <div class="alert alert-{{ message.tags }} mt-3" role="alert">
-                        {{ message }}
+                {% if field.errors %}
+                    <div class="invalid-feedback">
+                        {% for error in field.errors %}
+                            {{ error }}
+                        {% endfor %}
                     </div>
                 {% endif %}
-            {% endfor %}
-        {% endif %} -->
+            </div>
+        {% endfor %}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
         <button class="btn btn-primary" type="submit">Create tournament</button>
     </form>
 {% endblock %}
-

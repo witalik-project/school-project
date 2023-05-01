@@ -8,21 +8,42 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            {{ tournamentday.tournament }} - {{ tournamentday.day_date }}
+            <h1 style="margin-bottom: 20px;">{{ tournamentday.tournament | title }} - {{ tournamentday.day_date }}</h1>
+
+            {% if user.is_authenticated %}
+            <h4>Create new battle 
+                <a href="{% url 'tournaments:create_tournament_battle' pk=tournamentday.id %}" class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i></a>
+            </h4>
+            {% endif %}
+
+            <hr>
+
+            {% for battle in tournamentday.tournamentbattle_set.all %}
+                
+                <div class="card mb-3" style="width: 18rem; margin-right: 15px;">
+                    <div class="card-body">
+                        <h5 class="card-title"><span class="badge bg-danger">{{ battle.battle_first_oponent.class_number }}{{ battle.battle_first_oponent.class_letter }}</span> VS <span class="badge bg-primary">{{ battle.battle_second_oponent.class_number }}{{ battle.battle_second_oponent.class_letter }}</span></h5>
+                        <p class="card-text">Date: {{ battle.battle_day.day_date }}</p>
+                        <p class="card-text">Time: {{ battle.battle_time }}</p>
+                        {% if battle.winner %}
+                            {% if battle.winner == 'FO' %}
+                                <p class="card-text">Winner: <span class="badge bg-danger">WINNER</span></p>
+                            {% elif battle.winner == 'SO' %}
+                                <p class="card-text">Winner: <span class="badge bg-primary">WINNER</span></p>
+                            {% endif %}
+                        {% else %}
+                            <p class="card-text">Winner: <span class="badge bg-secondary">-</span></p>  
+                        {% endif %}
+
+                        <hr>
+
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'tournaments:edit_tournament_battle' pk=battle.id %}" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
+                            <a href="{% url 'tournaments:delete_tournament_battle' pk=battle.id %}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                        {% endif %}
+                </div>
+            </div>
+            {% endfor %}
         </div>
-
-        {% if user.is_authenticated %}
-        <h4>Create new battle 
-            <a href="{% url 'create_tournament_battle' pk=tournamentday.id %}" class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i></a>
-        </h4>
-        {% endif %}
-
-        <hr>
-
-
-        {% for battle in tournamentday.tournamentbattle_set.all %}
-            {{ battle.battle_day }} - {{ battle.battle_time }}
-            {{ battle.battle_first_oponent.class_number }} {{ battle.battle_first_oponent.class_letter }} VS {{ battle.battle_second_oponent.class_number }} {{ battle.battle_second_oponent.class_letter }}
-        {% endfor %}
     </div>
 {% endblock %}

@@ -2,7 +2,7 @@
 {% load bootstrap %}
 
 {% block page_title %}
-Logs history
+    Rejestry dodawania/odejmowania punktów
 {% endblock %}
 
 {% block content %}
@@ -10,54 +10,46 @@ Logs history
     <div class="row">
         <div class="card mx-auto" style="width: 35rem;">
             <div class="card-header text-center mt-2">
-                <b>Logs</b>
+                <b>Rejestry</b>
             </div>
 
             <form method="GET">
                 {{ filter.form|bootstrap }}
-            <div class="text-end">
-                <button type="submit" class="btn btn-primary mt-2 mb-2">Submit</button>
-            </div>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary mt-2 mb-2">Szukać</button>
+                </div>
             </form>
             
             <form action="{% url 'delete_logs' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-
-            <ul class="list-group list-group-flush">
-                {% for log in filter.qs %}
-
-                {% if log.points_log_type %}
-
-                <li class="list-group-item"><input type="checkbox" id="logsCheckbox{{log.id}}" name="logs" value="{{log.id}}"> <label for="logsCheckbox{{log.id}}">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - <i class="bi bi-plus-circle-fill"></i> {{ log.points_log_amount }} points. Created by - {{ log.points_log_created_by }}</label>
-                </li>
-
-                {% else %}
-
-                <li class="list-group-item"><input type="checkbox" id="logsCheckbox{{log.id}}" name="logs" value="{{log.id}}"> <label for="logsCheckbox{{log.id}}">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - <i class="bi bi-dash-circle-fill"></i> {{ log.points_log_amount }} points. Created by - {{ log.points_log_created_by }}</label>
-                </li>
-
+                <ul class="list-group list-group-flush">
+                    {% for log in filter.qs %}
+                        {% if log.points_log_type %}
+                            <li class="list-group-item"><input type="checkbox" id="logsCheckbox{{log.id}}" name="logs" value="{{log.id}}"> <label for="logsCheckbox{{log.id}}">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - <i class="bi bi-plus-circle-fill"></i> {{ log.points_log_amount }} punktów. Stworzone przez - {{ log.points_log_created_by }}</label>
+                            </li>
+                        {% else %}
+                            <li class="list-group-item"><input type="checkbox" id="logsCheckbox{{log.id}}" name="logs" value="{{log.id}}"> <label for="logsCheckbox{{log.id}}">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - <i class="bi bi-dash-circle-fill"></i> {{ log.points_log_amount }} poipunktównts. Stworzone przez - {{ log.points_log_created_by }}</label>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                            <div class="alert alert-danger mt-3" role="alert">
+                                {{ message }}
+                            </div>
+                        {% else %}
+                            <div class="alert alert-{{ message.tags }} mt-3" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}
-                {% endfor %}
-            </ul>
-            {% if messages %}
-            {% for message in messages %}
-                {% if message.tags == 'error' %}
-                    <div class="alert alert-danger mt-3" role="alert">
-                        {{ message }}
-                    </div>
-                {% else %}
-                    <div class="alert alert-{{ message.tags }} mt-3" role="alert">
-                        {{ message }}
-                    </div>
-                {% endif %}
-            {% endfor %}
-            {% endif %}
-
-            <div class="text-end pt-2 mb-2">
-                <button class="btn btn-danger" type="submit">Delete logs</button>
-            </div>
-            
-        </form>
+                <div class="text-end pt-2 mb-2">
+                    <button class="btn btn-danger" type="submit">Usunąć rejestr(-y)</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

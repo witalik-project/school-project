@@ -27,7 +27,7 @@ class ClassesEditCreateForm(forms.Form):
     class_number = forms.IntegerField(
         label="Class number",
         error_messages={
-            'required': 'Please provide class number'
+            "required": "Please provide class number"
         }
     )
     class_letter = forms.ChoiceField(
@@ -58,29 +58,30 @@ class ClassesEditExceptPointsForm(forms.ModelForm):
 
 class PointsLogCreateForm(forms.Form):
     CHOICES = (
-        (True, 'Add'),
-        (None, 'Subtract')
+        (True, 'Dodać'),
+        (None, 'Odjąć')
     )
 
     points_log_class = forms.ModelChoiceField(
-        label="Class",
+        label="Klasa rejestru",
         queryset=Classes.objects.all(),
     )
     points_log_type = forms.ChoiceField(
-        label="Choose what you want to do",
+        label="Dodać lub odjąć punkty",
         choices=CHOICES,
         required=False,
-        initial='Add'
+        initial='Dodać'
     )
     points_log_amount = forms.IntegerField(
-        label="Amount",
+        label="Ilość",
         validators=[MinValueValidator(1), MaxValueValidator(100)],
         error_messages={
-            "required": "Please enter amount of points to add/subtract",
-            "min_value": "Min add/subtract log amount - 1",
-            "max_value": "Max add/subtract log amount - 100"
+            "required": "Proszę podać ilość punktów by dodać/odjąć",
+            "min_value": "Minimalna ilość punktów by dodać/odjąć - 1",
+            "max_value": "Maksymalna ilość punktów by dodać/odjąć - 100"
         })
     points_log_description = forms.CharField(
+        label="Opis",
         widget=forms.Textarea,
         required=False
     )
@@ -88,14 +89,15 @@ class PointsLogCreateForm(forms.Form):
 
 class PointsAddSubtractLogCreateEditForm(forms.Form):
     points_log_amount = forms.IntegerField(
-        label="Amount",
+        label="Ilość",
         validators=[MinValueValidator(1), MaxValueValidator(100)],
         error_messages={
-            "required": "Please enter amount of points to add/subtract",
-            "min_value": "Min add/subtract log amount - 1",
-            "max_value": "Max add/subtract log amount - 100"
+            "required": "Proszę podać ilość punktów by dodać/odjąć",
+            "min_value": "Minimalna ilość punktów by dodać/odjąć - 1",
+            "max_value": "Maksymalna ilość punktów by dodać/odjąć - 100"
         })
     points_log_description = forms.CharField(
+        label="Opis",
         widget=forms.Textarea,
         required=False
     )

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Delete tournament day
+{% endblock %}
+
+{% block content %}
+    <h1>Delete tournament day</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to delete {{ tournamentday.day_date }} tournament day?</p>
+        <button class="btn btn-primary" type="submit">Delete day</button>
+    </form>
+{% endblock %}

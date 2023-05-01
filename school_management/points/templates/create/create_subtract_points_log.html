@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Create points log
+    Odjąć punkty
 {% endblock %}
 
 {% block content %}
-    <h1>Create points log</h1>
-    <form action="/school/points/log/create" method="post" enctype="multipart/form-data">
+    <h1>Odjąć punkty dla {{ classes.class_number }}{{classes.class_letter }} klasy.</h1>
+    <form action="{% url 'points:points_substract_log_create' pk=classes.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
             <div class="form-item mt-3 mb-3">
@@ -28,7 +28,6 @@
                 {% endif %}
             {% endfor %}
         {% endif %}
-        <button class="btn btn-primary" type="submit">Create log</button>
+        <button class="btn btn-primary" type="submit">Odjąć</button>
     </form>
 {% endblock %}
-

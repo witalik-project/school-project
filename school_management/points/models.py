@@ -15,24 +15,25 @@ class Classes(models.Model):
 
     # TODO: Do it automatically
     SCHOOL_LEVEL_CHOICES = [
-        ("Primary school", "Primary school"),
-        ("Secondary school", "Secondary school"),
-        ("High school", "High school"),
+        ("Klasy początkowe", "Klasy początkowe"),
+        ("Klasy średnie", "Klasy średnie"),
+        ("Klasy starsze", "Klasy starsze"),
     ]
 
-    class_number = models.PositiveSmallIntegerField(
+    class_number = models.PositiveSmallIntegerField(verbose_name="Numer klasy",
         validators=[MinValueValidator(1), MaxValueValidator(12)], null=False
     )
-    class_letter = models.CharField(
+    class_letter = models.CharField(verbose_name="Litera klasy",
         max_length=1, choices=SCHOOL_LETTER_CHOICES, default="A"
     )
-    class_school_level = models.CharField(
-        max_length=16, choices=SCHOOL_LEVEL_CHOICES, default="Primary school"
+    class_school_level = models.CharField("Poziom szkolnictwa",
+        max_length=16, choices=SCHOOL_LEVEL_CHOICES, default="Klasy średnie"
     )
-    class_teacher_name = models.CharField(max_length=20)
-    class_teacher_surname = models.CharField(max_length=20)
-    class_points = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(999)], null=False
+    class_teacher_name = models.CharField(verbose_name="Imię wychowawczyni", max_length=20)
+    class_teacher_surname = models.CharField(verbose_name="Nazwisko wychowawczyni", max_length=20)
+    class_points = models.PositiveSmallIntegerField(verbose_name="Punkty",
+        validators=[MinValueValidator(0), MaxValueValidator(999)], null=False,
+        default=0
     )
 
     def __str__(self):
@@ -40,16 +41,16 @@ class Classes(models.Model):
 
 
 class PointsLog(models.Model):
-    points_log_class = models.ForeignKey(Classes, on_delete=models.CASCADE, null=True)
-    points_log_date = models.DateField(auto_now_add=True)
-    points_log_type = models.BooleanField(null=True, blank=True)
-    points_log_amount = models.PositiveSmallIntegerField(
+    points_log_class = models.ForeignKey(Classes, verbose_name="Klasa rejestru", on_delete=models.CASCADE, null=True)
+    points_log_date = models.DateField(verbose_name="Data rejestru", auto_now_add=True)
+    points_log_type = models.BooleanField(verbose_name="Typ rejestru", null=True, blank=True)
+    points_log_amount = models.PositiveSmallIntegerField(verbose_name="Ilość punktów",
         validators=[MinValueValidator(1), MaxValueValidator(100)], null=False
     )
-    points_log_description = models.TextField(
+    points_log_description = models.TextField(verbose_name="Opis rejestru",
         blank=True, null=True, help_text="Write some description if you need."
     )
-    points_log_created_by = models.CharField(max_length=30, null=True)
+    points_log_created_by = models.CharField(verbose_name="Przez kogo zorbiony rejestr", max_length=30, null=True)
 
     def __str__(self):
         if self.points_log_type:

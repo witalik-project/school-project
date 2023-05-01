@@ -42,11 +42,10 @@ INSTALLED_APPS = [
     
     # Third-party apps:
     "bootstrapform",
-    "bootstrap_modal_forms",
     "django_filters",
     "django_bootstrap_icons",
+
     # My apps:
-    
     "points",
     "tournaments",
 ]
@@ -119,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "pl"
 
 TIME_ZONE = "Europe/Vilnius"
 

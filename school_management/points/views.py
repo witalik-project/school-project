@@ -1,12 +1,11 @@
-from typing import List
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
-from django.views.generic import ListView, TemplateView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView, DeletionMixin
+from django.views.generic import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Classes, PointsLog
 from .forms import (
     ClassesEditExceptPointsForm,
@@ -16,67 +15,63 @@ from .forms import (
 )
 from .filters import PointsLogFilter
 
+
 class Index(ListView):
     template_name = "index.html"
     model = Classes
     context_object_name = "classes"
 
 
+def login_request(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                # messages.add_message(request, messages.INFO, f"You are now logged in as {username}.")
+                return redirect("/")
+            else:
+                messages.add_message(
+                    request, messages.ERROR, "Invalid username or password."
+                )
+        else:
+            messages.error(request, "Invalid username or password.")
+    form = AuthenticationForm()
+    return render(
+        request=request,
+        template_name="registration/login.html",
+        context={"login_form": form},
+    )
+
+
+def logout_request(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect("/")
+    return render(request=request, template_name="registration/logout.html")
+
+
 class CreateClass(LoginRequiredMixin, CreateView):
-    template_name = "create_class.html"
+    template_name = "create/create_class.html"
     model = Classes
     form_class = ClassesCreateEditForm
     success_url = "/"
 
 
-class Scoreboard(ListView):
-    template_name = "scoreboard.html"
-    model = Classes
-    context_object_name = "classes"
-
-    ordering = ["-class_points"]
-
-
-class LogsList(LoginRequiredMixin, ListView):
-    template_name = "logs.html"
-    model = PointsLog
-    context_object_name = "logs"
-    ordering = ["-points_log_date"]
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["filter"] = PointsLogFilter(
-            self.request.GET, self.get_queryset()
-        )
-        return context
-
-
 class EditClass(LoginRequiredMixin, UpdateView):
-    template_name = "edit_class.html"
+    template_name = "edit/edit_class.html"
     model = Classes
     form_class = ClassesEditExceptPointsForm
     success_url = "/"
 
 
 class DeleteClass(LoginRequiredMixin, DeleteView):
-    template_name = "delete_class.html"
+    template_name = "delete/delete_class.html"
     model = Classes
     success_url = "/"
-
-
-@login_required
-def delete_logs(request):
-    if request.method == "POST":
-        queryset = request.POST.getlist("logs")
-        if queryset:
-            PointsLog.objects.filter(id__in=queryset).delete()
-        else:
-            messages.add_message(
-                request,
-                messages.WARNING,
-                "Please check logs you want to delete.",
-            )
-    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
 @login_required
@@ -130,7 +125,7 @@ def create_points_log(request):
 
     return render(
         request,
-        "create_points_log.html",
+        "create/create_points_log.html",
         {
             "form": form,
         },
@@ -168,7 +163,7 @@ def add_points_log(request, pk):
 
     return render(
         request,
-        "create_add_points_log.html",
+        "create/create_add_points_log.html",
         {"form": form, "classes": points_log_class},
     )
 
@@ -204,9 +199,46 @@ def subtract_points_log(request, pk):
 
     return render(
         request,
-        "create_subtract_points_log.html",
+        "create/create_subtract_points_log.html",
         {"form": form, "classes": points_log_class},
     )
+
+
+@login_required
+def delete_logs(request):
+    if request.method == "POST":
+        queryset = request.POST.getlist("logs")
+        if queryset:
+            PointsLog.objects.filter(id__in=queryset).delete()
+        else:
+            messages.add_message(
+                request,
+                messages.WARNING,
+                "Please check logs you want to delete.",
+            )
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+
+class LogsList(LoginRequiredMixin, ListView):
+    template_name = "logs.html"
+    model = PointsLog
+    context_object_name = "logs"
+    ordering = ["-points_log_date"]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["filter"] = PointsLogFilter(
+            self.request.GET, self.get_queryset()
+        )
+        return context
+
+
+class Scoreboard(ListView):
+    template_name = "scoreboard.html"
+    model = Classes
+    context_object_name = "classes"
+
+    ordering = ["-class_points"]
 
 
 def scoreboard(request):
@@ -218,35 +250,3 @@ def scoreboard(request):
             "classes": all_classes,
         },
     )
-
-
-def login_request(request):
-    if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get("username")
-            password = form.cleaned_data.get("password")
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                # messages.add_message(request, messages.INFO, f"You are now logged in as {username}.")
-                return redirect("/")
-            else:
-                messages.add_message(
-                    request, messages.ERROR, "Invalid username or password."
-                )
-        else:
-            messages.error(request, "Invalid username or password.")
-    form = AuthenticationForm()
-    return render(
-        request=request,
-        template_name="registration/login.html",
-        context={"login_form": form},
-    )
-
-
-def logout_request(request):
-    if request.method == "POST":
-        logout(request)
-        return redirect("/")
-    return render(request=request, template_name="logout.html")
