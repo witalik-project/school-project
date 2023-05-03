@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Create tournament
+    Zredagować pojedynek
 {% endblock %}
 
 {% block content %}
-    <h1>Create tournament</h1>
-    <form action="/tournaments/create" method="post" enctype="multipart/form-data">
+    <h1>Zredagować {{ tournamentbattle.battle_first_oponent.class_number }}{{ tournamentbattle.battle_first_oponent.class_letter }} VS {{ tournamentbattle.battle_second_oponent.class_number }}{{ tournamentbattle.battle_second_oponent.class_letter }} pojedynek</h1>
+    <form action="{% url 'tournaments:tournament_battle_edit' pk=tournamentbattle.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
             <div class="form-item mt-3 mb-3">
@@ -28,6 +28,6 @@
                 {% endfor %}
             </div>
         {% endif %}
-        <button class="btn btn-primary" type="submit">Create tournament</button>
+        <button class="btn btn-primary" type="submit">Zredagować</button>
     </form>
 {% endblock %}

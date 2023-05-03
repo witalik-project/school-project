@@ -14,7 +14,7 @@ class TournamentsList(ListView):
 
 
 class CreateTournament(LoginRequiredMixin, CreateView):
-    template_name = "create_tournament.html"
+    template_name = "create/create_tournament.html"
     model = Tournament
     form_class = TournamentCreateEditForm
     success_url = "/tournaments/"
@@ -25,25 +25,25 @@ class CreateTournament(LoginRequiredMixin, CreateView):
         return self.render_to_response(context=context)
 
 class TournamentDetailView(DetailView):
-    template_name = "view_tournament.html"
+    template_name = "view/view_tournament.html"
     model = Tournament
 
 
 class EditTournament(LoginRequiredMixin, UpdateView):
-    template_name = "edit_tournament.html"
+    template_name = "edit/edit_tournament.html"
     model = Tournament
     form_class = TournamentCreateEditForm
     success_url = "/tournaments/"
 
 
 class DeleteTournament(LoginRequiredMixin, DeleteView):
-    template_name = "delete_tournament.html"
+    template_name = "delete/delete_tournament.html"
     model = Tournament
     success_url = "/tournaments/"
 
 
 class CreateTournamentDay(LoginRequiredMixin, CreateView):
-    template_name = "create_day.html"
+    template_name = "create/create_day.html"
     model = TournamentDay
     form_class = TournamentDayCreateEditForm
 
@@ -63,12 +63,12 @@ class CreateTournamentDay(LoginRequiredMixin, CreateView):
 
 
 class TournamentDayDetailView(DetailView):
-    template_name = "view_day.html"
+    template_name = "view/view_day.html"
     model = TournamentDay
 
 
 class TournamentDayEditView(LoginRequiredMixin, UpdateView):
-    template_name = "edit_day.html"
+    template_name = "edit/edit_day.html"
     model = TournamentDay
     form_class = TournamentDayEditForm
 
@@ -77,7 +77,7 @@ class TournamentDayEditView(LoginRequiredMixin, UpdateView):
 
 
 class DeleteDay(LoginRequiredMixin, DeleteView):
-    template_name = "delete_day.html"
+    template_name = "delete/delete_day.html"
     model = TournamentDay
     
     def get_success_url(self):
@@ -85,12 +85,12 @@ class DeleteDay(LoginRequiredMixin, DeleteView):
 
 
 class TournamentBattleCreateView(LoginRequiredMixin, CreateView):
+    template_name = "create/create_battle.html"
     model = TournamentBattle
     form_class = TournamentBattleCreateForm
-    template_name = 'create_battle.html'
 
     def get_success_url(self):
-        return reverse_lazy('tournaments:tournament_battle_day_detail', args=[self.object.battle_day.pk])
+        return reverse_lazy('tournaments:tournament_day_detail', args=[self.object.battle_day.pk])
 
     def get_context_data(self, **kwargs):
         context = super(TournamentBattleCreateView, self).get_context_data(**kwargs)
@@ -107,18 +107,17 @@ class TournamentBattleCreateView(LoginRequiredMixin, CreateView):
     
 
 class TournamentBattleEditView(LoginRequiredMixin, UpdateView):
-    template_name = "edit_battle.html"
+    template_name = "edit/edit_battle.html"
     model = TournamentBattle
     form_class = TournamentBattleEditForm
 
     def get_success_url(self):
-        return reverse_lazy('tournaments:tournament_battle_day_detail', args=[self.object.battle_day.pk])
+        return reverse_lazy('tournaments:tournament_day_detail', args=[self.object.battle_day.pk])
 
 
 class DeleteTournamentBattle(LoginRequiredMixin, DeleteView):
-    template_name = "delete_battle.html"
+    template_name = "delete/delete_battle.html"
     model = TournamentBattle
 
     def get_success_url(self):
-        return reverse_lazy('tournaments:tournament_battle_day_detail', args=[self.object.battle_day.pk])
-
+        return reverse_lazy('tournaments:tournament_day_detail', args=[self.object.battle_day.pk])

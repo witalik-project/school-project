@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Usunąć pojedynek
+{% endblock %}
+
+{% block content %}
+    <h1>Usunąć pojedynek</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>Jesteś pewny(-a) by usunąć {{ tournamentbattle.battle_first_oponent.class_number }}{{ tournamentbattle.battle_first_oponent.class_letter }} VS {{ tournamentbattle.battle_second_oponent.class_number }}{{ tournamentbattle.battle_second_oponent.class_letter }} pojedynek ?</p>
+        <button class="btn btn-primary" type="submit">Usunąć</button>
+    </form>
+{% endblock %}

@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Create tournament battle
+    Stworzyć pojedynek
 {% endblock %}
 
 {% block content %}
-    <h1>Create battle</h1>
-    <form action="{% url 'tournaments:create_tournament_battle' pk=tournamentday.id %}" method="post" enctype="multipart/form-data">
+    <h1>Stworzyć pojedynek dla {{ tournamentday.tournament.name }} turnieju</h1>
+    <form action="{% url 'tournaments:tournament_battle_create' pk=tournamentday.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-item mt-3 mb-3 d-none">
             {{ form.battle_day }}
@@ -44,7 +44,6 @@
                 {% endfor %}
             </div>
         {% endif %}
-        <button class="btn btn-primary" type="submit">Create battle</button>
+        <button class="btn btn-primary" type="submit">Stworzyć</button>
     </form>
 {% endblock %}
-

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_title %}
+    Turniej
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h1 style="margin-bottom: 20px;">{{ tournament.tournament_name | title }}</h1>
+
+            {% if user.is_authenticated %}
+            <h4>Stworzyć dzień pojedynków 
+                <a href="{% url 'tournaments:tournament_day_create' pk=tournament.id %}" class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i></a>
+            </h4>
+            {% endif %}
+
+            <hr>
+
+            {% for day in tournament.tournamentday_set.all %}
+                <div class="card mb-3" style="width: 18rem; margin-right: 15px;">
+                    <div class="card-body">
+                        <h5 class="card-title">Dzień</h5>
+                        <p class="card-text">Data: {{ day.day_date }}</p>
+
+                        <hr>
+
+                        <a href="{% url 'tournaments:tournament_day_detail' pk=day.id %}" class="btn btn-success"><i class="bi bi-eye-fill"></i></a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'tournaments:tournament_day_edit' pk=day.id %}" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
+                            <a href="{% url 'tournaments:tournament_day_delete' pk=day.id %}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

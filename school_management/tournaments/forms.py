@@ -7,8 +7,8 @@ class TournamentCreateEditForm(forms.ModelForm):
         model = Tournament
         fields = "__all__"
         labels = {
-            "tournament_start_date": "Tournament start date (YYYY-MM-DD)",
-            "tournament_end_date": "Tournament end date (YYYY-MM-DD)",
+            "tournament_start_date": "Data początku (YYYY-MM-DD, np. 2022-02-22)",
+            "tournament_end_date": "Data końca (YYYY-MM-DD, np. 2022-02-22)",
         }
     
     def clean(self):
@@ -17,7 +17,7 @@ class TournamentCreateEditForm(forms.ModelForm):
 
         if classes:
             if classes.count() < 2:
-                raise forms.ValidationError("Classes in tournament need to be at least 2")
+                raise forms.ValidationError("Najmniej w turnieju może uczestniczyć dwie klasy")
 
         return cleaned_data
 
@@ -27,7 +27,7 @@ class TournamentDayCreateEditForm(forms.ModelForm):
         model = TournamentDay
         fields = "__all__"
         labels = {
-            "day_date": "Day date (YYYY-MM-DD)"
+            "day_date": "Data (YYYY-MM-DD, np. 2022-02-22)"
         }
     
     def __init__(self, *args, **kwargs):
@@ -42,7 +42,7 @@ class TournamentDayEditForm(forms.ModelForm):
         model = TournamentDay
         fields = ['day_date']
         labels = {
-            "day_date": "Day date (YYYY-MM-DD)"
+            "day_date": "Data (YYYY-MM-DD, np. 2022-02-22)"
         }
 
 class TournamentBattleCreateForm(forms.ModelForm):
@@ -50,7 +50,7 @@ class TournamentBattleCreateForm(forms.ModelForm):
         model = TournamentBattle
         fields = ['battle_day', 'battle_first_oponent', 'battle_second_oponent', 'battle_time', 'battle_is_finished', 'winner']
         labels = {
-            "battle_time": "Battle time (hh:mm)"
+            "battle_time": "Czas pojedynku (hh:mm, np. 15:00)"
         }
 
     def __init__(self, *args, **kwargs):
@@ -79,5 +79,5 @@ class TournamentBattleEditForm(forms.ModelForm):
         model = TournamentBattle
         fields = ['battle_first_oponent', 'battle_second_oponent', 'battle_time', 'battle_is_finished', 'winner']
         labels = {
-            "battle_time": "Battle time (hh:mm)"
+            "battle_time": "Czas pojedynku (hh:mm, np. 15:00)"
         }
