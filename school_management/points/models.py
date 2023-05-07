@@ -47,9 +47,6 @@ class PointsLog(models.Model):
     points_log_amount = models.PositiveSmallIntegerField(verbose_name="Ilość punktów",
         validators=[MinValueValidator(1), MaxValueValidator(100)], null=False
     )
-    points_log_description = models.TextField(verbose_name="Opis rejestru",
-        blank=True, null=True, help_text="Write some description if you need."
-    )
     points_log_created_by = models.CharField(verbose_name="Przez kogo zorbiony rejestr", max_length=30, null=True)
 
     def __str__(self):

@@ -80,11 +80,6 @@ class PointsLogCreateForm(forms.Form):
             "min_value": "Minimalna ilość punktów by dodać/odjąć - 1",
             "max_value": "Maksymalna ilość punktów by dodać/odjąć - 100"
         })
-    points_log_description = forms.CharField(
-        label="Opis",
-        widget=forms.Textarea,
-        required=False
-    )
 
 
 class PointsAddSubtractLogCreateEditForm(forms.Form):
@@ -96,8 +91,3 @@ class PointsAddSubtractLogCreateEditForm(forms.Form):
             "min_value": "Minimalna ilość punktów by dodać/odjąć - 1",
             "max_value": "Maksymalna ilość punktów by dodać/odjąć - 100"
         })
-    points_log_description = forms.CharField(
-        label="Opis",
-        widget=forms.Textarea,
-        required=False
-    )
