@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Usunąć turniej
+    Usuń turniej
 {% endblock %}
 
 {% block content %}
-    <h1>Usunąć turniej</h1>
+    <h1>Usuń turniej</h1>
     <form method="post">
         {% csrf_token %}
         <p>Jesteś pewny(-a) by usunąć {{ tournament.tournament_name }} turniej ?</p>
-        <button class="btn btn-primary" type="submit">Usunąć</button>
+        <button class="btn btn-primary" type="submit">Usuń</button>
     </form>
 {% endblock %}

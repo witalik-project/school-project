@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Odjąć punkty
+    Odejmij punkty
 {% endblock %}
 
 {% block content %}
-    <h1>Odjąć punkty dla {{ classes.class_number }}{{classes.class_letter }} klasy.</h1>
+    <h1>Odejmij punkty dla {{ classes.class_number }}{{classes.class_letter }} klasy</h1>
     <form action="{% url 'points:points_substract_log_create' pk=classes.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
@@ -28,6 +28,6 @@
                 {% endif %}
             {% endfor %}
         {% endif %}
-        <button class="btn btn-primary" type="submit">Odjąć</button>
+        <button class="btn btn-primary" type="submit">Odejmij</button>
     </form>
 {% endblock %}

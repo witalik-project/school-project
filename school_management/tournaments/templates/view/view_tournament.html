@@ -11,7 +11,7 @@
             <h1 style="margin-bottom: 20px;">{{ tournament.tournament_name | title }}</h1>
 
             {% if user.is_authenticated %}
-            <h4>Stworzyć dzień pojedynków 
+            <h4>Stwórz dzień pojedynków 
                 <a href="{% url 'tournaments:tournament_day_create' pk=tournament.id %}" class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i></a>
             </h4>
             {% endif %}

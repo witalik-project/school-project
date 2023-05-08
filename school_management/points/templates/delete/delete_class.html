@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Usunąć klasę
+    Usuń klasę
 {% endblock %}
 
 {% block content %}
-    <h1>Usunąć klasę</h1>
+    <h1>Usuń klasę</h1>
     <form method="post">
         {% csrf_token %}
         <p>Jesteś pewny(-a) by usunąć {{ classes.class_number }}{{ classes.class_letter | capfirst }} klasę ?</p>
-        <button class="btn btn-primary" type="submit">Usunąć</button>
+        <button class="btn btn-primary" type="submit">Usuń</button>
     </form>
 {% endblock %}

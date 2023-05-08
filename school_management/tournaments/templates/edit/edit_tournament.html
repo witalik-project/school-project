@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Zredagować turniej
+    Zredaguj turniej
 {% endblock %}
 
 {% block content %}
-    <h1>Zredagować {{ tournament.tournament_name }} turniej</h1>
+    <h1>Zredaguj {{ tournament.tournament_name }} turniej</h1>
     <form action="{% url 'tournaments:tournament_edit' pk=tournament.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
@@ -28,6 +28,6 @@
                 {% endfor %}
             </div>
         {% endif %}
-        <button class="btn btn-primary" type="submit">Zredagować</button>
+        <button class="btn btn-primary" type="submit">Zapisz</button>
     </form>
 {% endblock %}

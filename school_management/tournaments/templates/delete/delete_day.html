@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Usunąć dzień pojedynków
+    Usuń dzień pojedynków
 {% endblock %}
 
 {% block content %}
-    <h1>Usunąć dzień pojedynków</h1>
+    <h1>Usuń dzień pojedynków</h1>
     <form method="post">
         {% csrf_token %}
         <p>Jesteś pewny(-a) by usunąć {{ tournamentday.day_date }} dzień pojedynków ?</p>
-        <button class="btn btn-primary" type="submit">Usunąć</button>
+        <button class="btn btn-primary" type="submit">Usuń</button>
     </form>
 {% endblock %}

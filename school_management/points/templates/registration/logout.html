@@ -6,6 +6,6 @@
     <form method="post">
         {% csrf_token %}
         <p>Jesteś pewny(-a) by wylogować {{ request.user }} ?</p>
-        <button class="btn btn-primary" type="submit">Wylogować</button>
+        <button class="btn btn-primary" type="submit">Wyloguj się</button>
     </form>
 {% endblock %}

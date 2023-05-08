@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Dodać punkty
+    Dodaj punkty
 {% endblock %}
 
 {% block content %}
-    <h1>Dodać punkty dla {{ classes.class_number }}{{classes.class_letter }} klasy.</h1>
+    <h1>Dodaj punkty dla {{ classes.class_number }}{{classes.class_letter }} klasy</h1>
     <form action="{% url 'points:points_add_log_create' pk=classes.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
@@ -22,6 +22,6 @@
                 </div>
             {% endfor %}
         {% endif %}
-        <button class="btn btn-primary" type="submit">Dodać</button>
+        <button class="btn btn-primary" type="submit">Dodaj</button>
     </form>
 {% endblock %}

@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Zredagować klasę
+    Zredaguj klasę
 {% endblock %}
 
 {% block content %}
-    <h1>Zredagować {{ classes.class_number }}{{classes.class_letter }} klasę.</h1>
+    <h1>Zredaguj {{ classes.class_number }}{{classes.class_letter }} klasę.</h1>
     <form action="{% url 'points:class_edit' pk=classes.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
@@ -15,6 +15,6 @@
                 {{ field.errors }}
             </div>
         {% endfor %}
-        <button class="btn btn-primary" type="submit">Zredagować</button>
+        <button class="btn btn-primary" type="submit">Zapisz</button>
     </form>
 {% endblock %}

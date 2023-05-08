@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Stworzyć dzień 
+    Stwórz dzień 
 {% endblock %}
 
 {% block content %}
-    <h1>Stworzyć dzień pojedynków dla {{ tournament.tournament_name }} turnieju</h1>
+    <h1>Stwórz dzień pojedynków dla {{ tournament.tournament_name }} turnieju</h1>
     <form action="{% url 'tournaments:tournament_day_create' pk=tournament.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-item mt-3 mb-3 d-none">
@@ -24,6 +24,6 @@
                 {% endfor %}
             </div>
         {% endif %}
-        <button class="btn btn-primary" type="submit">Stworzyć</button>
+        <button class="btn btn-primary" type="submit">Stwórz</button>
     </form>
 {% endblock %}

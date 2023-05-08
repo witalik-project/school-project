@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Zredagować pojedynek
+    Zredaguj pojedynek
 {% endblock %}
 
 {% block content %}
-    <h1>Zredagować {{ tournamentbattle.battle_first_oponent.class_number }}{{ tournamentbattle.battle_first_oponent.class_letter }} VS {{ tournamentbattle.battle_second_oponent.class_number }}{{ tournamentbattle.battle_second_oponent.class_letter }} pojedynek</h1>
+    <h1>Zredaguj {{ tournamentbattle.battle_first_oponent.class_number }}{{ tournamentbattle.battle_first_oponent.class_letter }} VS {{ tournamentbattle.battle_second_oponent.class_number }}{{ tournamentbattle.battle_second_oponent.class_letter }} pojedynek</h1>
     <form action="{% url 'tournaments:tournament_battle_edit' pk=tournamentbattle.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
@@ -28,6 +28,6 @@
                 {% endfor %}
             </div>
         {% endif %}
-        <button class="btn btn-primary" type="submit">Zredagować</button>
+        <button class="btn btn-primary" type="submit">Zapisz</button>
     </form>
 {% endblock %}

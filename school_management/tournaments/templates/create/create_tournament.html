@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Stworzyć turniej
+    Stwórz turniej
 {% endblock %}
 
 {% block content %}
-    <h1>Stworzyć turniej</h1>
+    <h1>Stwórz turniej</h1>
     <form action="{% url 'tournaments:tournament_create' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
@@ -28,6 +28,6 @@
                 {% endfor %}
             </div>
         {% endif %}
-        <button class="btn btn-primary" type="submit">Stworzyć</button>
+        <button class="btn btn-primary" type="submit">Stwórz</button>
     </form>
 {% endblock %}

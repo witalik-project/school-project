@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Zredagować dzień pojedynków
+    Zredaguj dzień pojedynków
 {% endblock %}
 
 {% block content %}
-    <h1>Zredagować {{ tournamentday.day_date }} dzień pojedynków</h1>
+    <h1>Zredaguj {{ tournamentday.day_date }} dzień pojedynków</h1>
     <form action="{% url 'tournaments:tournament_day_edit' pk=tournamentday.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
@@ -28,6 +28,6 @@
                 {% endfor %}
             </div>
         {% endif %}
-        <button class="btn btn-primary" type="submit">Zredagować</button>
+        <button class="btn btn-primary" type="submit">Zapisz</button>
     </form>
 {% endblock %}
