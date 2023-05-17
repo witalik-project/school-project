@@ -7,17 +7,23 @@ class TournamentCreateEditForm(forms.ModelForm):
         model = Tournament
         fields = "__all__"
         labels = {
-            "tournament_start_date": "Data początku (YYYY-MM-DD, np. 2022-02-22)",
-            "tournament_end_date": "Data końca (YYYY-MM-DD, np. 2022-02-22)",
+            "tournament_start_date": "Data początku (np. 2022-02-22 lub 22.02.2022)",
+            "tournament_end_date": "Data końca (np. 2022-02-22 lub 22.02.2022)",
         }
     
     def clean(self):
         cleaned_data = super().clean()
         classes = cleaned_data.get('tournament_classes')
+        start = cleaned_data.get('tournament_start_date')
+        end = cleaned_data.get('tournament_end_date')
 
         if classes:
             if classes.count() < 2:
                 raise forms.ValidationError("Najmniej w turnieju może uczestniczyć dwie klasy")
+        
+        if start and end:
+            if end < start:
+                raise forms.ValidationError("Koniec turnieju nie może być wcześniej jego początku")
 
         return cleaned_data
 
@@ -27,7 +33,7 @@ class TournamentDayCreateEditForm(forms.ModelForm):
         model = TournamentDay
         fields = "__all__"
         labels = {
-            "day_date": "Data (YYYY-MM-DD, np. 2022-02-22)"
+            "day_date": "Data (np. 2022-02-22 lub 22.02.2022)"
         }
     
     def __init__(self, *args, **kwargs):
@@ -36,13 +42,24 @@ class TournamentDayCreateEditForm(forms.ModelForm):
         self.fields['tournament'].widget = forms.HiddenInput()
         self.fields['tournament'].initial = tournament_pk
     
+    def clean(self):
+        cleaned_data = super().clean()
+        date = cleaned_data.get('day_date')
+        tournament = cleaned_data.get('tournament')
+
+        if date:
+            if date < tournament.tournament_start_date or date > tournament.tournament_end_date:
+                raise forms.ValidationError("Dzień pojedynków powinien być w przedziale początku i końca turnieju")
+
+        return cleaned_data
+
 
 class TournamentDayEditForm(forms.ModelForm):
     class Meta:
         model = TournamentDay
         fields = ['day_date']
         labels = {
-            "day_date": "Data (YYYY-MM-DD, np. 2022-02-22)"
+            "day_date": "Data (np. 2022-02-22 lub 22.02.2022)"
         }
 
 class TournamentBattleCreateForm(forms.ModelForm):
@@ -69,7 +86,7 @@ class TournamentBattleCreateForm(forms.ModelForm):
 
         if bfo and bso:
             if bfo == bso:
-                raise forms.ValidationError("Oponents cannot bet the same")
+                raise forms.ValidationError("Pierwszy i drugi przeciwnik nie może być ta sama klasa")
         
         return cleaned_data
 
