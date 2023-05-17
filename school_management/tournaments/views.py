@@ -74,6 +74,11 @@ class TournamentDayEditView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('tournaments:tournament_detail', args=[self.object.tournament.pk])
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['tournament_pk'] = self.kwargs['pk']
+        return kwargs
 
 
 class DeleteDay(LoginRequiredMixin, DeleteView):

@@ -57,10 +57,28 @@ class TournamentDayCreateEditForm(forms.ModelForm):
 class TournamentDayEditForm(forms.ModelForm):
     class Meta:
         model = TournamentDay
-        fields = ['day_date']
+        fields = "__all__"
         labels = {
             "day_date": "Data (np. 2022-02-22 lub 22.02.2022)"
         }
+
+    def __init__(self, *args, **kwargs):
+        tournament_pk = kwargs.pop('tournament_pk')
+        super().__init__(*args, **kwargs)
+        self.fields['tournament'].widget = forms.HiddenInput()
+        self.fields['tournament'].initial = tournament_pk
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        date = cleaned_data.get('day_date')
+        tournament = cleaned_data.get('tournament')
+
+        if date:
+            if date < tournament.tournament_start_date or date > tournament.tournament_end_date:
+                raise forms.ValidationError("Dzień pojedynków powinien być w przedziale początku i końca turnieju")
+
+        return cleaned_data
+    
 
 class TournamentBattleCreateForm(forms.ModelForm):
     class Meta:

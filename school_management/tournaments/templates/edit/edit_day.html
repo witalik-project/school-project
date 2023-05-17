@@ -8,19 +8,15 @@
     <h1>Zredaguj {{ tournamentday.day_date }} dzień pojedynków</h1>
     <form action="{% url 'tournaments:tournament_day_edit' pk=tournamentday.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {% for field in form %}
-            <div class="form-item mt-3 mb-3">
-                {{ field.label_tag }}
-                {{ field }}
-                {% if field.errors %}
-                    <div class="invalid-feedback">
-                        {% for error in field.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-        {% endfor %}
+        <div class="form-item mt-3 mb-3 d-none">
+            {{ form.tournament }}
+            <input type="hidden" name="{{ form.tournament.name }}" value="{{ form.tournament.value }}">
+        </div>
+        <div class="form-item mt-3 mb-3">
+            {{ form.day_date.label_tag }}
+            {{ form.day_date }}
+            {{ form.day_date.errors }}
+        </div>
         {% if form.non_field_errors %}
             <div class="alert alert-danger">
                 {% for error in form.non_field_errors %}
