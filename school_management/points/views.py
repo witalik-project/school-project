@@ -35,10 +35,10 @@ def login_request(request):
                 return redirect("/")
             else:
                 messages.add_message(
-                    request, messages.ERROR, "Invalid username or password."
+                    request, messages.ERROR, "Nieprawidłowa nazwa użytkownika lub hasło"
                 )
         else:
-            messages.error(request, "Invalid username or password.")
+            messages.error(request, "Nieprawidłowa nazwa użytkownika lub hasło")
     form = AuthenticationForm()
     return render(
         request=request,
@@ -92,7 +92,7 @@ def create_points_log(request):
                     messages.add_message(
                         request,
                         messages.ERROR,
-                        f"You cannot add this amount of points. Now {log.points_log_class.class_number}{log.points_log_class.class_letter} class have: {log.points_log_class.class_points}/1000 points.",
+                        f"Nie można dodać tej ilości punktów. Teraz {log.points_log_class.class_number}{log.points_log_class.class_letter} klasa ma: {log.points_log_class.class_points}/1000 punktów",
                     )
                 else:
                     print(log.points_log_type)
@@ -110,7 +110,7 @@ def create_points_log(request):
                     messages.add_message(
                         request,
                         messages.ERROR,
-                        f"You cannot subtract this amount of points. Now {log.points_log_class.class_number}{log.points_log_class.class_letter} class have: {log.points_log_class.class_points}/1000 points. Cannot be under 0.",
+                        f"Nie można odjąć tej ilości punktów. Teraz {log.points_log_class.class_number}{log.points_log_class.class_letter} klasa ma: {log.points_log_class.class_points}/1000 punktów. Nie może być mniej 0",
                     )
                 else:
                     print(log.points_log_type)
@@ -149,7 +149,7 @@ def add_points_log(request, pk):
                 messages.add_message(
                     request,
                     messages.ERROR,
-                    f"You cannot add this amount of points. Now {points_log_class.class_number}{points_log_class.class_letter} class have: {points_log_class.class_points}/1000 points.",
+                    f"Nie można dodać tej ilości punktów. Teraz {points_log_class.class_number}{points_log_class.class_letter} klasa ma: {points_log_class.class_points}/1000 punktów.",
                 )
             else:
                 log.points_log_class.class_points = (
@@ -185,7 +185,7 @@ def subtract_points_log(request, pk):
                 messages.add_message(
                     request,
                     messages.ERROR,
-                    f"You cannot subtract this amount of points. Now {points_log_class.class_number}{points_log_class.class_letter} class have: {points_log_class.class_points}/1000 points. Cannot be under 0.",
+                    f"Nie można odjąć tej ilości punktów. Teraz {points_log_class.class_number}{points_log_class.class_letter} klasa ma: {points_log_class.class_points}/1000 punktów. Nie może być mniej 0",
                 )
             else:
                 log.points_log_class.class_points = (
@@ -214,7 +214,7 @@ def delete_logs(request):
             messages.add_message(
                 request,
                 messages.WARNING,
-                "Please check logs you want to delete.",
+                "Rejestry do usunięcia nie są wybrane",
             )
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
