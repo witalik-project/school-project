@@ -1,1 +1,1 @@
-Test deploy - giszk.pythonanywhere.com
+Test deploy - [click](giszk.pythonanywhere.com)
