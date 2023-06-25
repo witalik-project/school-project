@@ -1,1 +1,1 @@
-Test deploy - [click](giszk.pythonanywhere.com)
+Test deploy - <a href="giszk.pythonanywhere.com" target="_blank">click</a>
