@@ -28,7 +28,7 @@
                             <li class="list-group-item"><input type="checkbox" id="logsCheckbox{{log.id}}" name="logs" value="{{log.id}}"> <label for="logsCheckbox{{log.id}}">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - <i class="bi bi-plus-circle-fill"></i> {{ log.points_log_amount }} punktów. Stworzone przez - {{ log.points_log_created_by }}</label>
                             </li>
                         {% else %}
-                            <li class="list-group-item"><input type="checkbox" id="logsCheckbox{{log.id}}" name="logs" value="{{log.id}}"> <label for="logsCheckbox{{log.id}}">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - <i class="bi bi-dash-circle-fill"></i> {{ log.points_log_amount }} poipunktównts. Stworzone przez - {{ log.points_log_created_by }}</label>
+                            <li class="list-group-item"><input type="checkbox" id="logsCheckbox{{log.id}}" name="logs" value="{{log.id}}"> <label for="logsCheckbox{{log.id}}">{{ log.points_log_class.class_number }}{{ log.points_log_class.class_letter }} - {{ log.points_log_date }} - <i class="bi bi-dash-circle-fill"></i> {{ log.points_log_amount }} punktów. Stworzone przez - {{ log.points_log_created_by }}</label>
                             </li>
                         {% endif %}
                     {% endfor %}
